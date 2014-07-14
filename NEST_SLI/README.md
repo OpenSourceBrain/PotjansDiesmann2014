@@ -2,8 +2,9 @@ This directory contains the original version of this model developed in NEST's S
 It works with NEST 2.4 and is also contained as an example in that release
 
 Files:
-	- network_params.sli
-	Script containing model parameters
+	
+        - network_params.sli
+        Script containing model parameters
 
         - sim_params.sli
         Script containing simulation and recording parameters
@@ -11,14 +12,17 @@ Files:
         - user_params.sli
         Script containing parameters related to the user system
 
-	- microcircuit.sli
-	Simulation script
+        - microcircuit.sli
+        Simulation script
 
-	- run_microcircuit.sh
-	Bash script. Creates sim_script.sh and submits it to the queue
+        - run_microcircuit.sh
+        Bash script. Creates sim_script.sh and submits it to the queue
 
-	- plot_spiking_activity.py
-	Python script for basic analysis
+        - plot_spiking_activity.py
+        Python script for basic analysis
+
+        - example_spiking_activity.png
+        Example figure of network output, similar to Fig. 6A,B of the paper
 
 The bash script is designed for a cluster with a queuing system that uses qsub.
 It takes all parameters from user_params.sli and sim_params.sli and can be left

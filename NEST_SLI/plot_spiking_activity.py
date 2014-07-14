@@ -108,7 +108,7 @@ for i in range(8)[::-1]:
         nr_spikes = len(t_spikes)
         rate += 1000*nr_spikes/(t_stop-t_start)*1/float(pop_sizes[layer][pop])
         gid = gid_count*np.ones(nr_spikes)
-        axarr[0].plot(t_spikes, gid, '.', color=color[pop])
+        axarr[0].plot(t_spikes, gid, '.', color=color[pop], ms=1)
         gid_count += 1
     rates[i] = rate
 

@@ -43,7 +43,7 @@
 /layers [(L23) (L4) (L5) (L6)] def
 /populations [(e) (i)] def
 
-/full_scale_num_neurons 
+/full_scale_n_neurons 
   [[20683   % layer 2/3 e
     5834 ]  % layer 2/3 i
    [21915   % layer 4 e

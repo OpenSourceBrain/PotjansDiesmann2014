@@ -1,11 +1,29 @@
 /*
-    microcircuit.sli
+ *    microcircuit.sli
+ *	
+ * This file is part of NEST. 	
+ * 	
+ * Copyright (C) 2004 The NEST Initiative 	
+ * 	
+ * NEST is free software: you can redistribute it and/or modify 	
+ * it under the terms of the GNU General Public License as published by 	
+ * the Free Software Foundation, either version 2 of the License, or 	
+ * (at your option) any later version. 	
+ * 	
+ * NEST is distributed in the hope that it will be useful, 	
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 	
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 	
+ * GNU General Public License for more details. 	
+ * 	
+ * You should have received a copy of the GNU General Public License 	
+ * along with NEST. If not, see <http://www.gnu.org/licenses/>.
+ *
 
     Implementation of the multi-layered local cortical network model by
     
     Potjans, Tobias C., and Markus Diesmann. "The cell-type specific 
     cortical microcircuit: relating structure and activity in a full-scale 
-    spiking network model." Cerebral Cortex (2012): bhs358.
+    spiking network model." Cerebral Cortex (2014): bhs358.
 
     Uses user_params.sli, sim_params.sli, and network_params.sli
     

@@ -1,24 +1,26 @@
 /*
- *    microcircuit.sli
- *	
- * This file is part of NEST. 	
- * 	
- * Copyright (C) 2004 The NEST Initiative 	
- * 	
- * NEST is free software: you can redistribute it and/or modify 	
- * it under the terms of the GNU General Public License as published by 	
- * the Free Software Foundation, either version 2 of the License, or 	
- * (at your option) any later version. 	
- * 	
- * NEST is distributed in the hope that it will be useful, 	
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 	
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 	
- * GNU General Public License for more details. 	
- * 	
- * You should have received a copy of the GNU General Public License 	
- * along with NEST. If not, see <http://www.gnu.org/licenses/>.
+ *  microcircuit.sli
  *
+ *  This file is part of NEST.
+ *
+ *  Copyright (C) 2004 The NEST Initiative
+ *
+ *  NEST is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  NEST is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with NEST.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
+/*
     Implementation of the multi-layered local cortical network model by
     
     Potjans, Tobias C., and Markus Diesmann. "The cell-type specific 
@@ -111,7 +113,10 @@
        /overwrite_files overwrite_existing_files
        /rng_seeds master_seed [0 n_vp 1 sub] add Range % local RNG seeds
        /grng_seed master_seed n_vp add                 % global RNG seed
-       /data_path output_path
+       run_mode (production) eq
+       {
+           /data_path output_path
+       } if
     >> SetStatus
 
     /seed_offset master_seed n_vp add def
@@ -327,7 +332,16 @@
 
 /WriteGIDstoFile
 {
-    output_path (/) join GID_filename join
+    run_mode (test) eq
+    {
+        GID_filename
+    } if
+
+    run_mode (production) eq
+    {
+        output_path (/) join GID_filename join
+    } if
+
     (w) ofsopen
     ; /outputstream Set
     Rank 0 eq
@@ -441,6 +455,7 @@
 
 			% fill the connectivity dictionary with the number of synapses to be used
                         conn_dict /N this_n_synapses put
+                        conn_dict /rule /fixed_total_number put
 
                         % Connect the populations
                         source_nodes
@@ -502,6 +517,8 @@
 
 		    % fill the connectivity dictionary with the number of synapses to be used       
                     conn_dict /N this_n_synapses put
+                    conn_dict /rule /fixed_total_number put
+
 
                     % Connect the thalamus
                     source_nodes
@@ -523,22 +540,22 @@
             Take
             spike_detector_GIDs target_layer get target_pop get
             1 arraystore
-            /all_to_all 
+            /all_to_all
             Connect
 
             % Connect to the voltmeter
             voltmeter_GIDs target_layer get target_pop get
-	    1 arraystore
+	        1 arraystore
             target_nodes
             % record from a continuous range of IDs
             n_neurons_rec_voltage target_layer get target_pop get
             Take
-            /all_to_all 
+            /all_to_all
             Connect
 
             % Connect to the Poisson generators
             poisson_GIDs target_layer get target_pop get
-	    1 arraystore
+	        1 arraystore
             target_nodes
             /all_to_all 
             << /weight PSC_ext /delay delays 0 get >>
@@ -546,7 +563,7 @@
 
             % Connect to the DC generators
             dc_GIDs target_layer get target_pop get
-	    1 arraystore
+   	        1 arraystore
             target_nodes
             /all_to_all
             Connect
@@ -560,7 +577,6 @@
         th_poisson_GID
         1 arraystore
         th_neuron_subnet_GID GetGlobalNodes
-	/all_to_all 
         Connect  
     } if    
 
@@ -570,7 +586,6 @@
         th_neuron_subnet_GID GetGlobalNodes
         th_spike_detector_GID 
         1 arraystore
-	/all_to_all 
         Connect
     } if
     
@@ -584,7 +599,6 @@
 
 % load parameters
 (user_params) run
-(sim_params) run
 (network_params) run
 
 CheckParameters

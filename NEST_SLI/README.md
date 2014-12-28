@@ -1,8 +1,12 @@
-This directory contains the original version of this model developed in NEST's SLI language
-It works with NEST 2.4 and is also contained as an example in that release
+This is an implementation of the multi-layer microcircuit model of early
+sensory cortex published by Potjans and Diesmann (2014) The cell-type specific
+cortical microcircuit: relating structure and activity in a full-scale spiking
+network model. Cerebral Cortex: doi:10.1093/cercor/bhs358.
+
+This directory contains the original version of this model developed in NEST's SLI language.
+It works with NEST 2.6 and is also contained as an example in that release.
 
 Files:
-	
         - network_params.sli
         Script containing model parameters
 
@@ -18,11 +22,8 @@ Files:
         - run_microcircuit.sh
         Bash script. Creates sim_script.sh and submits it to the queue
 
-        - plot_spiking_activity.py
+        - spike_analysis.py
         Python script for basic analysis
-
-        - example_spiking_activity.png
-        Example figure of network output, similar to Fig. 6A,B of the paper
 
 The bash script is designed for a cluster with a queuing system that uses qsub.
 It takes all parameters from user_params.sli and sim_params.sli and can be left
@@ -34,16 +35,17 @@ Instructions:
 
 1. Download NEST (http://www.nest-initiative.org/index.php/Software:Download)
 
-2. Compile NEST with MPI support (use the --with-mpi option when configuring) 
-   according to the instructions on
+2. Compile NEST according to the instructions on
    http://www.nest-initiative.org/index.php/Software:Installation
+   Use the --with-mpi flag to configure with MPI support
 
 3. In user_params.sli adjust output_dir, mpi_path, and nest_path to your system
 
 4. In sim_params.sli adjust the following parameters:
 
+   - 'run_mode': test or production
    - the number of compute nodes 'n_nodes'
-   - the number of processors per node 'n_procs_per_node'
+   - the number of processes per node 'n_procs_per_node'
    - queuing system parameters 'walltime' and 'memory'
    - simulation time 't_sim'
 
@@ -57,7 +59,7 @@ Instructions:
      full-size network, as long as 'area' is not too small
    - Choose the external input: Poissonian noise 'bg_rate' and/or DC current
      'dc_amplitude'
-   - Set any thalamic input parameters
+   - Set any thalamic inputs parameters
 
 6. Run the simulation by typing ./run_microcircuit.sh in your terminal
    (microcircuit.sli and the parameter files need to be in the same folder)
@@ -76,10 +78,10 @@ Instructions:
      voltmeter label + layer index + population index + spike detector GID +
      virtual process + .dat
 
-   - Run 'plot_spiking_activity.py' with the variable 'path' set to the output
-     folder in order to and produce a raster plot of spiking activity, and a 
-     bar plot of the firing rates.
-
+   - Run 'spike_analysis.py' with the variable 'datapath' set to the output
+     folder in order to merge the spike files of each population (including
+     thalamic ones, if present), sort GIDs, and produce dot plots and firing
+     rate plots.
    - The analysis script does not currently cover voltages.
     
 The simulation was successfully tested with MPI 1.4.3.
@@ -97,12 +99,13 @@ Simulation on a single process:
 2. Adjust 'area' and 'preserve_K' in network_params.sli such that the network
    is small enough to fit on your system. 
 
-3. Ensure that the output directory exists, as it is not created via the bash
-   script anymore
+3. Set the 'output_path' in user_params.sli to an existing directory.
+
+5. Set 'n_threads_per_proc' in sim_params.sli to a suitable value for your 
+   computer.
 
 4. Type '(microcircuit) run' to start the simulation on a single process.
 
 A downscaled version ('area' = 0.1) of the network was tested on a single
-process with 'preserve_K' = false. However, note that this produces different
-network dynamics than the full-scale model.
+MPI process with two threads with 'preserve_K' = true. 
 

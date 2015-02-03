@@ -29,10 +29,11 @@
 # read in parameters and paths from user_params.sli and sim_params.sli
 # output directory
 path=`egrep '/output_path' user_params.sli|cut -f 2 -d '('|cut -f 1 -d ')'`
-# number of nodes
-n_nodes=`egrep '/n_nodes' sim_params.sli|cut -f 2 -d ' '`
-# number of processors per node
-n_procs_per_node=`egrep '/n_procs_per_node' sim_params.sli|cut -f 2 -d ' '`
+# number of compute nodes
+n_compute_nodes=`egrep '/n_compute_nodes' sim_params.sli|cut -f 2 -d ' '`
+# number of MPI processes per compute node
+n_mpi_procs_per_compute_node=`egrep '/n_mpi_procs_per_compute_node' sim_params.sli|cut -f 2 -d ' '`
+
 # walltime
 walltime=`egrep '/walltime' sim_params.sli|cut -f 2 -d '('|cut -f 1 -d ')'`
 # memory allocation
@@ -69,5 +70,5 @@ echo -n "mpirun -machinefile \$PBS_NODEFILE " >> sim_script.sh
 echo "$nest_path $path/microcircuit.sli" >> sim_script.sh
 
 # The variable PBS_NODEFILE is set dynamically when invoking qsub
-qsub -l nodes=$n_nodes:ppn=$n_procs_per_node sim_script.sh
+qsub -l nodes=$n_compute_nodes:ppn=$n_mpi_procs_per_compute_node sim_script.sh
 

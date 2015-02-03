@@ -30,10 +30,10 @@
 %%%     	Simulation parameters		%%%        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-/run_mode (production) def  % (test) for writing files to 
-                            % directory containing microcircuit.sli 
-                            % (production) for writing files
-                            % to a chosen absolute path. 
+/run_mode (test) def  % (test) for writing files to 
+                      % directory containing microcircuit.sli 
+                      % (production) for writing files
+                      % to a chosen absolute path. 
 
 /t_sim 1000.0 def     % simulated time (ms)
 /dt 0.1 def           % simulation step (ms). Default is 0.1 ms.
@@ -45,19 +45,21 @@
 % see Gewaltig et al. (2012) for details       
 /master_seed 123456 def   % changes rng_seeds and grng_seed
 
-/n_nodes 1 def	                    % number of compute nodes
+/n_compute_nodes 1 def	    	    	    % number of compute nodes
 
-/n_procs_per_node 24 def	    % number of processors per node
-                                    % use for instance 24 for a full-scale simulation
+/n_mpi_procs_per_compute_node 1 def	    % number of MPI processes per compute node
+
+/n_threads_per_mpi_proc 2 def	            % number of threads per MPI process
 
 
-/n_vp n_procs_per_node n_nodes mul def 	% number of virtual processes
-                                        % This should be an integer multiple of 
-                                        % the number of MPI processes 
-                                        % See Morrison et al. (2005) Neural Comput
+/n_vp n_compute_nodes n_mpi_procs_per_compute_node mul n_threads_per_mpi_proc mul def
+      		      				% number of virtual processes
+                                                % This should be an integer multiple of 
+                                                % the number of MPI processes 
+                                                % See Morrison et al. (2005) Neural Comput
 /walltime (8:0:0) def		% walltime for simulation
 
-/memory (4gb) def		% total memory
+/memory (500mb) def		% total memory
                                 % use for instance 4gb for a full-scale simulation
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

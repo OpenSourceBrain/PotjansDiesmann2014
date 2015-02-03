@@ -34,7 +34,7 @@
 
 % area of network in mm^2; scales numbers of neurons
 % use 1 for the full-size network (77,169 neurons)
-/area 1. def
+/area 0.1 def
 
 % whether to use full-scale in-degrees when downscaling the number of neurons
 % When preserve_K is false, the full-scale connection probabilities are used.

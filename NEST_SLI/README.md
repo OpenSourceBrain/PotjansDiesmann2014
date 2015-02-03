@@ -44,8 +44,9 @@ Instructions:
 4. In sim_params.sli adjust the following parameters:
 
    - 'run_mode': test or production
-   - the number of compute nodes 'n_nodes'
-   - the number of processes per node 'n_procs_per_node'
+   - the number of compute nodes 'n_compute_nodes'
+   - the number of processes per compute node 'n_mpi_procs_per_node'
+   - the number of threads per mpi process 'n_threads_per_mpi_proc'
    - queuing system parameters 'walltime' and 'memory'
    - simulation time 't_sim'
 
@@ -101,10 +102,10 @@ Simulation on a single process:
 
 3. Set the 'output_path' in user_params.sli to an existing directory.
 
-5. Set 'n_threads_per_proc' in sim_params.sli to a suitable value for your 
-   computer.
+4. Set 'n_compute_nodes' to 1, and 'n_mpi_procs_per_compute_node' and
+   'n_threads_per_proc' in sim_params.sli to a suitable value for your computer.
 
-4. Type '(microcircuit) run' to start the simulation on a single process.
+5. Type '(microcircuit) run' to start the simulation on a single process.
 
 A downscaled version ('area' = 0.1) of the network was tested on a single
 MPI process with two threads with 'preserve_K' = true. 

@@ -30,7 +30,7 @@
 # Adapted from ../run_microcircuit.sh
 
 
-path=`pwd`/trial_run
+path=`pwd`/data
 
 
 # path for nest
@@ -42,6 +42,7 @@ echo "Found NEST at $nest_path"
 mkdir -p $path
 
 cp '../user_params.sli' $path
+cp '../spike_analysis.py' $path
 subs1='s/\/path_to_data\/data/'${path//\//\\\/}'/g'
 sed -i -e $subs1 trial_run/user_params.sli
 subs1='s/\/path_to_nest_install_folder\/bin\/nest/'${nest_path//\//\\\/}'/g'

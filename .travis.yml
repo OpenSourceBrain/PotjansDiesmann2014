@@ -22,6 +22,12 @@ install:
     - ./create_small_network_sim.sh
     - ls -alt data
 
+
+    # Install OMV
+
+    - pip install git+https://github.com/OpenSourceBrain/osb-model-validation
+
+
 script:
     - omv all -V
     - ls -alt data

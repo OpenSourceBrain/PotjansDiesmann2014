@@ -1,14 +1,37 @@
+    /*
+     *  README.txt
+     *
+     *  This file is part of NEST.
+     *
+     *  Copyright (C) 2004 The NEST Initiative
+     *
+     *  NEST is free software: you can redistribute it and/or modify
+     *  it under the terms of the GNU General Public License as published by
+     *  the Free Software Foundation, either version 2 of the License, or
+     *  (at your option) any later version.
+     *
+     *  NEST is distributed in the hope that it will be useful,
+     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     *  GNU General Public License for more details.
+     *
+     *  You should have received a copy of the GNU General Public License
+     *  along with NEST.  If not, see <http://www.gnu.org/licenses/>.
+     *
+     */
+
+
+Cortical microcircuit simulation: SLI version
+
 This is an implementation of the multi-layer microcircuit model of early
 sensory cortex published by Potjans and Diesmann (2014) The cell-type specific
 cortical microcircuit: relating structure and activity in a full-scale spiking
 network model. Cerebral Cortex: doi:10.1093/cercor/bhs358.
 
-This directory contains the original version of this model developed in NEST's SLI language.
-It works with NEST 2.6 and is also contained as an example in that release.
 
 Files:
-        - network_params.sli
-        Script containing model parameters
+	- network_params.sli
+	Script containing model parameters
 
         - sim_params.sli
         Script containing simulation and recording parameters
@@ -16,14 +39,14 @@ Files:
         - user_params.sli
         Script containing parameters related to the user system
 
-        - microcircuit.sli
-        Simulation script
+	- microcircuit.sli
+	Simulation script
 
-        - run_microcircuit.sh
-        Bash script. Creates sim_script.sh and submits it to the queue
+	- run_microcircuit.sh
+	Bash script. Creates sim_script.sh and submits it to the queue
 
-        - spike_analysis.py
-        Python script for basic analysis
+	- spike_analysis.py
+	Python script for basic analysis
 
 The bash script is designed for a cluster with a queuing system that uses qsub.
 It takes all parameters from user_params.sli and sim_params.sli and can be left
@@ -33,10 +56,9 @@ changed either.
 
 Instructions:
 
-1. Download NEST (http://www.nest-initiative.org/index.php/Software:Download)
+1. Download NEST (http://www.nest-simulator.org/download)
 
-2. Compile NEST according to the instructions on
-   http://www.nest-initiative.org/index.php/Software:Installation
+2. Compile NEST: http://www.nest-simulator.org/installation
    Use the --with-mpi flag to configure with MPI support
 
 3. In user_params.sli adjust output_dir, mpi_path, and nest_path to your system
@@ -102,10 +124,10 @@ Simulation on a single process:
 
 3. Set the 'output_path' in user_params.sli to an existing directory.
 
-4. Set 'n_compute_nodes' to 1, and 'n_mpi_procs_per_compute_node' and
+5. Set 'n_compute_nodes' to 1, and 'n_mpi_procs_per_compute_node' and
    'n_threads_per_proc' in sim_params.sli to a suitable value for your computer.
 
-5. Type '(microcircuit) run' to start the simulation on a single process.
+4. Type '(microcircuit) run' to start the simulation on a single process.
 
 A downscaled version ('area' = 0.1) of the network was tested on a single
 MPI process with two threads with 'preserve_K' = true. 

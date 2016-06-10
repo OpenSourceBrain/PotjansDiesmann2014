@@ -16,20 +16,20 @@ env:
 before_install:
 
     # Requirements for Brian & NEST
-    - sudo apt-get install -qq python-numpy python-scipy python-matplotlib python-sympy gsl-bin libgsl0-dev
+    #- sudo apt-get install -qq python-numpy python-scipy python-matplotlib python-sympy gsl-bin libgsl0-dev
 
 install:
-    - cd NEST_SLI/test/
-    - ./create_small_network_sim.sh
-    - ls -alt data
+    #- cd NEST_SLI/test/
+    #- ./create_small_network_sim.sh
+    #- ls -alt data
 
 
-    # Install OMV
+    # Install OMV
 
-    - pip install git+https://github.com/OpenSourceBrain/osb-model-validation
+    - pip install git+https://github.com/OpenSourceBrain/osb-model-validation
 
 
 script:
     - omv all -V
-    - ls -alt data
+    #- ls -alt data
 

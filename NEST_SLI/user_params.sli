@@ -24,7 +24,7 @@
 
 run_mode (production) eq
 {
-    % absolute path to which the output files should be written
+    % absolute path to which the output files should be written; not used in test mode
     /output_path (/path_to_data/data)
     def
 } if

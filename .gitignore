@@ -1,2 +1,8 @@
 NEST_SLI/test/trial_run
-NEST_SLI/test/data/
+NEST_SLI/test/data
+NEST_SLI/*.dat
+NEST_SLI/*.gdf
+/NeuroML2/Test_export.net.svg
+/NEST_SLI/firing_rates.png
+/NEST_SLI/rasterplot.png
+/NEST_SLI/sim_script.sh

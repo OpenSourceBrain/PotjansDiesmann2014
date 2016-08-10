@@ -1,52 +1,46 @@
-    /*
-     *  README.txt
-     *
-     *  This file is part of NEST.
-     *
-     *  Copyright (C) 2004 The NEST Initiative
-     *
-     *  NEST is free software: you can redistribute it and/or modify
-     *  it under the terms of the GNU General Public License as published by
-     *  the Free Software Foundation, either version 2 of the License, or
-     *  (at your option) any later version.
-     *
-     *  NEST is distributed in the hope that it will be useful,
-     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *  GNU General Public License for more details.
-     *
-     *  You should have received a copy of the GNU General Public License
-     *  along with NEST.  If not, see <http://www.gnu.org/licenses/>.
-     *
-     */
+<!--
+ *  README.txt
+ *
+ *  This file is part of NEST.
+ *
+ *  Copyright (C) 2004 The NEST Initiative
+ *
+ *  NEST is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  NEST is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with NEST.  If not, see <http://www.gnu.org/licenses/>.
+ *
+-->
 
-
-Cortical microcircuit simulation: SLI version
+## Cortical microcircuit simulation: SLI version
 
 This is an implementation of the multi-layer microcircuit model of early
-sensory cortex published by Potjans and Diesmann (2014) The cell-type specific
-cortical microcircuit: relating structure and activity in a full-scale spiking
+sensory cortex published by [Potjans and Diesmann (2014)](http://www.ncbi.nlm.nih.gov/pubmed/23203991) 
+The cell-type specific cortical microcircuit: relating structure and activity in a full-scale spiking
 network model. Cerebral Cortex: doi:10.1093/cercor/bhs358.
 
 
-Files:
-	- network_params.sli
-	Script containing model parameters
+### Files:
 
-        - sim_params.sli
-        Script containing simulation and recording parameters
+**[network_params.sli](network_params.sli)** Script containing model parameters
 
-        - user_params.sli
-        Script containing parameters related to the user system
+**[sim_params.sli](sim_params.sli)**  Script containing simulation and recording parameters
 
-	- microcircuit.sli
-	Simulation script
+**[user_params.sli](user_params.sli)**  Script containing parameters related to the user system
 
-	- run_microcircuit.sh
-	Bash script. Creates sim_script.sh and submits it to the queue
+**[microcircuit.sli](microcircuit.sli)** Simulation script
 
-	- spike_analysis.py
-	Python script for basic analysis
+**[run_microcircuit.sh](run_microcircuit.sh)** Bash script. Creates sim_script.sh and submits it to the queue
+
+**[spike_analysis.py](spike_analysis.py)** Python script for basic analysis
 
 The bash script is designed for a cluster with a queuing system that uses qsub.
 It takes all parameters from user_params.sli and sim_params.sli and can be left
@@ -54,7 +48,7 @@ unchanged. The actual simulation script 'microcircuit.sli' does not need to be
 changed either.
 
 
-Instructions:
+### Instructions:
 
 1. Download NEST (http://www.nest-simulator.org/download)
 
@@ -100,7 +94,6 @@ Instructions:
      corresponding membrane potentials in mV. File names are formed as
      voltmeter label + layer index + population index + spike detector GID +
      virtual process + .dat
-
    - Run 'spike_analysis.py' with the variable 'datapath' set to the output
      folder in order to merge the spike files of each population (including
      thalamic ones, if present), sort GIDs, and produce dot plots and firing
@@ -113,7 +106,7 @@ matplotlib 0.99.1.1, and glob.
 
 ---------------------------------------------------
 
-Simulation on a single process:
+### Simulation on a single process:
 
 1. After compiling NEST (not necessarily with MPI), go to the folder that
    includes microcircuit.sli and the parameter files and type 'nest' in your

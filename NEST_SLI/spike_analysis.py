@@ -26,7 +26,7 @@ import glob
 import matplotlib.pyplot as plt
 import os
 
-datapath = '../data'
+datapath = '.'
 
 # get simulation time and numbers of neurons recorded from sim_params.sli
 

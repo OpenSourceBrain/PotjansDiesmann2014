@@ -44,13 +44,13 @@ mkdir -p $path
 cp '../user_params.sli' $path
 cp '../spike_analysis.py' $path
 subs1='s/\/path_to_data\/data/'${path//\//\\\/}'/g'
-sed -i -e $subs1 trial_run/user_params.sli
+sed -i -e $subs1 data/user_params.sli
 subs1='s/\/path_to_nest_install_folder\/bin\/nest/'${nest_path//\//\\\/}'/g'
-sed -i -e $subs1 trial_run/user_params.sli
+sed -i -e $subs1 data/user_params.sli
 
 cp '../network_params.sli' $path
 
-sed -i -e s/area.1.def/'area 0.05 def'/g trial_run/network_params.sli
+sed -i -e s/area.1.def/'area 0.05 def'/g data/network_params.sli
 
 cp '../sim_params.sli' $path
 cp '../microcircuit.sli' $path

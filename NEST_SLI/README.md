@@ -1,7 +1,7 @@
 <!--
- *  README.txt
+ *  README.md
  *
- *  This file is part of NEST.
+ *  See README.txt in NEST.
  *
  *  Copyright (C) 2004 The NEST Initiative
  *

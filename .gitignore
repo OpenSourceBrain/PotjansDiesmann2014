@@ -9,3 +9,5 @@ NEST_SLI/*.gdf
 /NEST_SLI/test/dataLarge
 /NeuroML2/*.png
 /NeuroML2/*.pov
+/PyNEST/data
+*.pyc

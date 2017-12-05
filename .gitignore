@@ -11,3 +11,6 @@ NEST_SLI/*.gdf
 /NeuroML2/*.pov
 /PyNEST/data
 *.pyc
+/PyNN/LEMS_Sim_TestExport_nrn.py
+/PyNN/clean.sh
+/PyNN/results

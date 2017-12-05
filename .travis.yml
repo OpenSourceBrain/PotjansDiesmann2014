@@ -31,5 +31,4 @@ install:
 
 script:
     - omv all -V
-    - ls -alt data
 

@@ -22,7 +22,7 @@ install:
     - cd NEST_SLI/test/
     - ./create_small_network_sim.sh
     - ls -alt data
-
+    - cd ../..
 
     # Install OMV
 

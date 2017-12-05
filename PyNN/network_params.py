@@ -10,7 +10,7 @@ params_dict = {
     # Whether to make random numbers independent of the number of processes
     'parallel_safe' : True,
     # Fraction of neurons to simulate
-    'N_scaling' : 1.,
+    'N_scaling' : 1., # N_scaling
     # Fraction of in-degrees to simulate. Upon downscaling, synaptic weights are 
     # taken proportional to 1/sqrt(in-degree) and external drive is adjusted 
     # to preserve mean and variances of activity in the diffusion approximation.

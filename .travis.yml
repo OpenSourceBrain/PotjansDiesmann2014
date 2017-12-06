@@ -42,7 +42,6 @@ install:
     - cd ../..
     
     - ./make_tests.sh
-    - mkdir PyNN/results
 
     # Install OMV
 

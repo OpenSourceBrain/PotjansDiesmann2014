@@ -14,3 +14,4 @@ NEST_SLI/*.gdf
 /PyNN/LEMS_Sim_TestExport_nrn.py
 /PyNN/clean.sh
 /PyNN/results
+/NeuroML2/*.ini

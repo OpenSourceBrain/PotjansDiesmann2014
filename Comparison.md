@@ -19,3 +19,11 @@ The model was originally implemented in NEST SLI format.
 <td><img alt="PyNEST firing rates" src="images/pynest_firing_rates_1.0.png" height="300"/></td>
 </tr>
 </table>
+
+#### PyNN: NEST
+
+<table>
+<tr>
+<td><img alt="PyNN NEST plots" src="images/pynn_nest_plots_1.0.png" height="300"/></td>
+</tr>
+</table>

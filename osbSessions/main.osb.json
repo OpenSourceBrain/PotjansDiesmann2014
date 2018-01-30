@@ -42,17 +42,17 @@
               "widgetType": 1,
               "isWidget": true,
               "transparentBackground": false,
-              "name": "Popup1",
+              "name": "Info",
               "size": {
-                "height": 238.8,
+                "height": 150,
                 "width": 484.8
               },
               "position": {
-                "left": 129,
-                "top": 499
+                "left": 141,
+                "top": 108
               },
               "dataType": "string",
-	      "data": "<span style='font-size:1.2em;'>You are viewing 2% of the full network. Please note, connectivity may take several minutes to load.</span>",
+	      "data": "<span style='font-size:1.2em;'>Please note, connectivity may take several minutes to load.</span>",
               "componentSpecific": {
                 "customHandlers": [
                   

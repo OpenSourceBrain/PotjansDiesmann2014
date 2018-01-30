@@ -1,0 +1,169 @@
+{
+  "id": 598,
+  "name": "potjansdiesmann2014",
+  "experiments": [
+    {
+      "id": 1204,
+      "aspectConfigurations": [
+        {
+          "id": 1184,
+          "instance": "MicrocircuitNoInput_2pcnt",
+          "watchedVariables": [
+            
+          ],
+          "modelParameters": [
+            
+          ],
+          "simulatorConfiguration": {
+            "id": 1156,
+            "simulatorId": "neuronSimulator",
+            "timestep": 2.5e-5,
+            "length": 0.3,
+            "parameters": {
+              "target": "MicrocircuitNoInput_2pcnt"
+            }
+          }
+        }
+      ],
+      "name": "MicrocircuitNoInput_2pcnt - net",
+      "creationDate": 1517324252000,
+      "lastModified": 1517325836000,
+      "status": "DESIGN",
+      "simulationResults": [
+        
+      ],
+      "script": "\/script.js",
+      "isPublic": false,
+      "view": {
+        "id": 1605,
+        "viewStates": {
+          "views": {
+            "Popup1": {
+              "widgetType": 1,
+              "isWidget": true,
+              "transparentBackground": false,
+              "name": "Popup1",
+              "size": {
+                "height": 238.8,
+                "width": 484.8
+              },
+              "position": {
+                "left": 129,
+                "top": 499
+              },
+              "dataType": "string",
+	      "data": "<span style='font-size:1.2em;'>You are viewing 2% of the full network. Please note, connectivity may take several minutes to load.</span>",
+              "componentSpecific": {
+                "customHandlers": [
+                  
+                ]
+              }
+            },
+            "Console1": {
+              "widgetType": "CONSOLE",
+              "isWidget": false
+            },
+            "Canvas1": {
+              "widgetType": "CANVAS",
+              "isWidget": false,
+              "dataType": "instances",
+              "data": [
+                "MicrocircuitNoInput_2pcnt"
+              ],
+              "componentSpecific": {
+                "cameraPosition": {
+                  "x": 0.05,
+                  "y": 750.039,
+                  "z": 1535.47
+                },
+                "cameraRotation": {
+                  "rx": 0,
+                  "ry": 0,
+                  "rz": 0,
+                  "radius": 1535.437
+                },
+                "colorMap": {
+                  "MicrocircuitNoInput_2pcnt.L4_I": "#ccb3ff",
+                  "MicrocircuitNoInput_2pcnt.L5_I": "#ccffcc",
+                  "MicrocircuitNoInput_2pcnt.L6_I": "#ffcccc",
+                  "MicrocircuitNoInput_2pcnt.L23_I": "#ff6666",
+                  "MicrocircuitNoInput_2pcnt.L4_E": "#004080",
+                  "MicrocircuitNoInput_2pcnt.L5_E": "#006600",
+                  "MicrocircuitNoInput_2pcnt.L6_E": "#ff9933",
+                  "MicrocircuitNoInput_2pcnt.L23_E": "#990000"
+                },
+                "opacityMap": {
+                  
+                },
+                "geometryTypeMap": {
+                  
+                },
+                "backgroundColor": "0x101010"
+              }
+            },
+            "Tutorial1": {
+              "widgetType": "TUTORIAL",
+              "isWidget": true,
+              "dataType": "array",
+              "data": [
+                
+              ],
+              "componentSpecific": {
+                "activeTutorial": "Open Source Brain Tutorial",
+                "currentStep": 0
+              },
+              "size": {
+                "height": 300,
+                "width": 350
+              },
+              "position": {
+                "left": "50%",
+                "top": "50%"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "activeExperimentId": 1204,
+  "geppettoModel": {
+    "id": 1577,
+    "url": "\/MicrocircuitNoInput_2pcnt_MODELf32339edc42e9df4a4be1ec00eeee8e4.xmi",
+    "type": "GEPPETTO_PROJECT"
+  },
+  "isPublic": false,
+  "isReadOnly": false,
+  "view": {
+    "id": 1604,
+    "viewStates": {
+      "views": {
+        "Canvas1": {
+          "widgetType": "CANVAS",
+          "componentSpecific": {
+            "radiusMap": {
+              "MicrocircuitNoInput_2pcnt.L4_I": "10",
+              "MicrocircuitNoInput_2pcnt.L5_I": "10",
+              "MicrocircuitNoInput_2pcnt.L6_I": "10",
+              "MicrocircuitNoInput_2pcnt.L23_I": "10",
+              "MicrocircuitNoInput_2pcnt.L4_E": "10",
+              "MicrocircuitNoInput_2pcnt.L5_E": "10",
+              "MicrocircuitNoInput_2pcnt.L6_E": "10",
+              "MicrocircuitNoInput_2pcnt.L23_E": "10"
+            },
+            "colorMap": {
+              "MicrocircuitNoInput_2pcnt.L4_I": "#ccb3ff",
+              "MicrocircuitNoInput_2pcnt.L5_I": "#ccffcc",
+              "MicrocircuitNoInput_2pcnt.L6_I": "#ffcccc",
+              "MicrocircuitNoInput_2pcnt.L23_I": "#ff6666",
+              "MicrocircuitNoInput_2pcnt.L4_E": "#004080",
+              "MicrocircuitNoInput_2pcnt.L5_E": "#006600",
+              "MicrocircuitNoInput_2pcnt.L6_E": "#ff9933",
+              "MicrocircuitNoInput_2pcnt.L23_E": "#990000"
+            }
+          }
+        }
+      }
+    }
+  }
+}

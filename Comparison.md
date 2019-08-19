@@ -1,9 +1,21 @@
 ## Comparison of model behaviour across implementations
 
-#### NEST SLI
+### NEST SLI
 
-The model was originally implemented in NEST SLI format.
+The model was originally implemented in [NEST SLI format](/NEST_SLI) (taken from [here](https://github.com/nest/nest-simulator/tree/master/examples/nest/Potjans_2014)). 
 
+**10% scaled down version**
+
+Note 1: 10% of cells recorded & plotted on left.<br/>
+Note 2: rasterplot includes first 200ms to enable comparison between implementations at startup, but firing rates are calculated on 200-1000ms.
+<table>
+<tr>
+<td><img alt="NEST SLI raster" src="images/nestsli_rasterplot_0.1.png" height="300"/></td>
+<td><img alt="NEST SLI firing rates" src="images/nestsli_firing_rates_0.1.png" height="300"/></td>
+</tr>
+</table>
+
+**100% scale version**
 <table>
 <tr>
 <td><img alt="NEST SLI raster" src="images/nestsli_rasterplot_1.0.png" height="300"/></td>
@@ -11,7 +23,8 @@ The model was originally implemented in NEST SLI format.
 </tr>
 </table>
 
-#### PyNEST
+
+### PyNEST
 
 <table>
 <tr>
@@ -20,7 +33,7 @@ The model was originally implemented in NEST SLI format.
 </tr>
 </table>
 
-#### PyNN: NEST
+### PyNN: NEST
 
 <table>
 <tr>

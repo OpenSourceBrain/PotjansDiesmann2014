@@ -27,6 +27,7 @@ sensory cortex published by [Potjans and Diesmann (2014)](http://www.ncbi.nlm.ni
 The cell-type specific cortical microcircuit: relating structure and activity in a full-scale spiking
 network model. Cerebral Cortex: doi:10.1093/cercor/bhs358.
 
+(NOTE: there is another copy of these model files here: https://github.com/nest/nest-simulator/tree/master/examples/nest/Potjans_2014)
 
 ### Files:
 

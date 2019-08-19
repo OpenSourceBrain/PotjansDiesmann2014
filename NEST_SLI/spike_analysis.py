@@ -171,7 +171,7 @@ for j in np.arange(num_pops):
     for i in np.arange(first_gids[j], first_gids[j] + rec_sizes[j]):
         plt.plot(neuron_spikes[i],
                  np.ones_like(neuron_spikes[i]) + sum(rec_sizes) - counter,
-                 'k o', ms=1, mfc=clrs[j], mec=clrs[j])
+                 'k o', ms=.5, mfc=clrs[j], mec=clrs[j])
         counter += 1
 plt.xlim(0, T - T_start)
 plt.ylim(0, sum(rec_sizes))
@@ -198,7 +198,7 @@ plt.figure(2)
 ticks = np.arange(num_pops)
 plt.bar(ticks, rates, width=0.9, color='k')
 xticklabels = ['L2/3e', 'L2/3i', 'L4e', 'L4i', 'L5e', 'L5i', 'L6e', 'L6i']
-plt.setp(plt.gca(), xticks=ticks + 0.5, xticklabels=xticklabels)
+plt.setp(plt.gca(), xticks=ticks, xticklabels=xticklabels)
 plt.xlabel(r'subpopulation')
 plt.ylabel(r'firing rate (spikes/s)')
 plt.savefig(os.path.join(datapath, 'firing_rates.png'))

@@ -19,14 +19,14 @@
 # You should have received a copy of the GNU General Public License
 # along with NEST.  If not, see <http://www.gnu.org/licenses/>.
 
-'''
+"""
 pynest microcircuit helpers
 ---------------------------
 
 Helper functions for the simulation and evaluation of the microcircuit.
 
 Hendrik Rothe, Hannah Bos, Sacha van Albada; May 2016
-'''
+"""
 
 import numpy as np
 import os
@@ -250,8 +250,8 @@ def read_name(path, name):
     run on several threads or mpi-processes, one name per spike detector
     per mpi-process/thread is extracted.
 
-    Arguments
-    ---------
+    Parameters
+    ------------
     path
         Path where the spike detector files are stored.
     name
@@ -286,8 +286,8 @@ def read_name(path, name):
 def load_spike_times(path, name, begin, end):
     """ Loads spike times of each spike detector.
 
-    Arguments
-    ---------
+    Parameters
+    -----------
     path
         Path where the files with the spike times are stored.
     name
@@ -326,8 +326,8 @@ def load_spike_times(path, name, begin, end):
 def plot_raster(path, name, begin, end):
     """ Creates a spike raster plot of the microcircuit.
 
-    Arguments
-    ---------
+    Parameters
+    -----------
     path
         Path where the spike times are stored.
     name
@@ -360,7 +360,7 @@ def plot_raster(path, name, begin, end):
     for i in list(range(len(files))):
         times = data_all[i][:, 1]
         neurons = np.abs(data_all[i][:, 0] - highest_gid) + 1
-        plt.plot(times, neurons, '.', color=color_list[i])
+        plt.plot(times, neurons, '.', color=color_list[i], markersize=1)
     plt.xlabel('time [ms]', fontsize=18)
     plt.xticks(fontsize=18)
     plt.yticks(
@@ -378,8 +378,8 @@ def fire_rate(path, name, begin, end):
     in a numpy file in the directory of the spike detectors. The mean firing
     rate and its standard deviation is displayed for each population.
 
-    Arguments
-    ---------
+    Parameters
+    -----------
     path
         Path where the spike times are stored.
     name
@@ -419,8 +419,8 @@ def boxplot(net_dict, path):
     To create the boxplot, the firing rates of each population need to be
     computed with the function 'fire_rate'.
 
-    Arguments
-    ---------
+    Parameters
+    -----------
     net_dict
         Dictionary containing parameters of the microcircuit.
     path

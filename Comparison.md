@@ -15,7 +15,7 @@ Note 2: rasterplot includes first 200ms to enable comparison between implementat
 </tr>
 </table>
 
-**100% scale version**
+**Full scale version**
 <table>
 <tr>
 <td><img alt="NEST SLI raster" src="images/nestsli_rasterplot_1.0.png" height="300"/></td>
@@ -26,6 +26,16 @@ Note 2: rasterplot includes first 200ms to enable comparison between implementat
 
 ### PyNEST
 
+**10% scaled down version**
+<table>
+<tr>
+<td><img alt="PyNEST raster" src="images/pynest_rasterplot_0.1.png" height="300"/></td>
+<td><img alt="PyNEST firing rates" src="images/pynest_firing_rates_0.1.png" height="300"/></td>
+</tr>
+</table>
+
+
+**Full scale version**
 <table>
 <tr>
 <td><img alt="PyNEST raster" src="images/pynest_rasterplot_1.0.png" height="300"/></td>

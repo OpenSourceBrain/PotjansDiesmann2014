@@ -15,3 +15,7 @@ NEST_SLI/*.gdf
 /PyNN/clean.sh
 /PyNN/results
 /NeuroML2/*.ini
+*.py0
+/PyNN/scrat.py
+/NEST_SLI/clean.sh
+/PyNEST/run.sh

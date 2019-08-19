@@ -34,7 +34,7 @@ def show_raster_bars(t_start, t_stop, n_rec, frac_to_plot, path):
     color = ['#595289', '#af143c']
     pops = ['23E', '23I', '4E', '4I', '5E', '5I', '6E', '6I']
     rates = np.zeros(8)
-    fig = plt.figure()
+    fig = plt.figure(figsize=(12, 6), dpi=80)
     axarr = []
     axarr.append(fig.add_subplot(121))
     axarr.append(fig.add_subplot(122))
@@ -60,20 +60,20 @@ def show_raster_bars(t_start, t_stop, n_rec, frac_to_plot, path):
         num_neurons = frac_to_plot * np.unique(ids).size
         t_spikes = t_spikes[np.where(ids < num_neurons + id_count + 1)[0]]
         ids = ids[np.where(ids < num_neurons + id_count + 1)[0]]
-        axarr[0].plot(t_spikes, ids, '.', color=color[pop])
+        axarr[0].plot(t_spikes, ids, '.', color=color[pop], markersize=1)
         id_count = ids[-1]
 
     # Plot bar plot
-    axarr[1].barh(np.arange(0, 8, 1) + 0.1, rates[::-1], color=color[::-1] * 4)
+    axarr[1].barh(np.arange(0, 8, 1), rates[::-1], color=color[::-1] * 4)
 
     # Set labels
     axarr[0].set_ylim((0.0, id_count))
     axarr[0].set_yticklabels([])
     axarr[0].set_xlabel('time (ms)')
-    axarr[1].set_ylim((0.0, 8.5))
-    axarr[1].set_yticks(np.arange(0.5, 8.5, 1.0))
+    axarr[1].set_ylim((-0.5, 7.5))
+    axarr[1].set_yticks(np.arange(0, 8, 1.0))
     axarr[1].set_yticklabels(pops[::-1])
     axarr[1].set_xlabel('rate (spikes/s)')
 
     plt.savefig(path + 'result.png')
-
+    

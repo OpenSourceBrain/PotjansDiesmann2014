@@ -62,7 +62,7 @@ print("Writing data took %g s" % (end_writing - start_writing,))
 
 if create_raster_plot and sim.rank() == 0 :
     # Numbers of neurons from which spikes were recorded
-    n_rec = [[0] * n_pops_per_layer] * n_layers
+    n_rec = [[0] * n_pops_per_layer for i in range(n_layers)]
     for layer, i in layers.items() :
         for pop, j in pops.items() :
             if record_fraction:

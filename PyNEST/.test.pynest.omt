@@ -1,2 +1,34 @@
 target: example.py
 engine: PyNEST
+mep: .test.pynest.mep
+experiments:
+  
+  # Note: test should start at 200ms, to avoid rapid spiking at start!!! 
+  spike_rate_l23e_0:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7714-0.gdf
+          format: ID_TIME
+          ids: '*'
+        tolerance: 0.00
+  # Note: test should start at 200ms!!!  
+  spike_rate_l23e_1:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7715-0.gdf
+          format: ID_TIME
+          ids: '*'
+        tolerance: 0.00
+
+
+  # Note: test should start at 200ms!!! 
+  spike_rate_l5e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7718-0.gdf
+          format: ID_TIME
+          ids: '*'
+        tolerance: 0.00

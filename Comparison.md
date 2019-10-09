@@ -2,7 +2,7 @@
 
 ### NEST SLI
 
-The model was originally implemented in [NEST SLI format](/NEST_SLI) (taken from [here](https://github.com/nest/nest-simulator/tree/master/examples/nest/Potjans_2014)). 
+The model was originally implemented in NEST SLI format and the scripts for this version are [here](/NEST_SLI) (based on code obtained [here](https://github.com/nest/nest-simulator/tree/master/examples/nest/Potjans_2014)). 
 
 **10% scaled down version**
 
@@ -25,6 +25,8 @@ Note 2: rasterplots include first 200ms to enable comparison between implementat
 
 
 ### PyNEST
+
+The model was reimplemented by the NEST developers in PyNEST and the scripts for this version are [here](/PyNEST).
 
 **10% scaled down version**
 <table>

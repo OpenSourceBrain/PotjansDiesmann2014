@@ -1,2 +1,35 @@
 target: microcircuit.sli
 engine: NEST
+mep: .test.nestsli.mep
+experiments:
+  
+  # Note: test should start at 200ms, to avoid rapid spiking at start!!! 
+  spike_rate_l23e_0:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_0_0-2073-0.gdf
+          format: ID_TIME
+          ids: '*'
+        tolerance: 0.00
+       
+  # Note: test should start at 200ms!!!  
+  spike_rate_l23e_1:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_0_0-2073-1.gdf
+          format: ID_TIME
+          ids: '*'
+        tolerance: 0.00
+
+
+  # Note: test should start at 200ms!!! 
+  spike_rate_l5e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_2_0-5909-0.gdf
+          format: ID_TIME
+          ids: '*'
+        tolerance: 0.00

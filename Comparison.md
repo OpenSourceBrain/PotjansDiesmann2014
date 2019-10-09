@@ -6,8 +6,8 @@ The model was originally implemented in [NEST SLI format](/NEST_SLI) (taken from
 
 **10% scaled down version**
 
-Note 1: 10% of cells recorded & plotted on left.<br/>
-Note 2: rasterplot includes first 200ms to enable comparison between implementations at startup, but firing rates are calculated on 200-1000ms.
+Note 1: 10% of cells in the network are included in rasterplots on the left.<br/>
+Note 2: rasterplots include first 200ms to enable comparison between implementations at startup, but firing rates on right are calculated on 200-1000ms.
 <table>
 <tr>
 <td><img alt="NEST SLI raster" src="images/nestsli_rasterplot_0.1.png" height="300"/></td>
@@ -45,8 +45,34 @@ Note 2: rasterplot includes first 200ms to enable comparison between implementat
 
 ### PyNN: NEST
 
+**10% scaled down version**
+<table>
+<tr>
+<td><img alt="PyNN NEST plots" src="images/pynn_nest_plots_0.1.png" height="300"/></td>
+</tr>
+</table>
+
+**Full scale version**
 <table>
 <tr>
 <td><img alt="PyNN NEST plots" src="images/pynn_nest_plots_1.0.png" height="300"/></td>
 </tr>
 </table>
+
+### PyNN: NEURON
+
+**10% scaled down version**
+<table>
+<tr>
+<td><img alt="PyNN NEURON plots" src="images/pynn_neuron_plots_0.1.png" height="300"/></td>
+</tr>
+</table>
+
+**Full scale version**
+<table>
+<tr>
+<td><img alt="PyNN NEURON plots" src="images/pynn_neuron_plots_1.0.png" height="300"/></td>
+</tr>
+</table>
+
+

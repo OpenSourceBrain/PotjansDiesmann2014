@@ -1,0 +1,15 @@
+system: Test 
+
+experiments:
+
+    # Note: test should start at 200ms, to avoid rapid spiking at start!!! 
+    spike_rate_l23e_0:
+        expected:
+            spike rate: 0.028041426010459582
+    spike_rate_l23e_1:
+        expected:
+            spike rate: 0.01657630089152219
+
+    spike_rate_l5e:
+        expected:
+            spike rate: 0.013824355467259158

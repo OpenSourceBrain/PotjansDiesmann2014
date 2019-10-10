@@ -10,6 +10,7 @@ experiments:
         spiketimes file: 
           path: spikes_0_0-2073-0.gdf
           format: ID_TIME
+          scaling: 0.001
           ids: '*'
         tolerance: 0.00
        
@@ -20,6 +21,7 @@ experiments:
         spiketimes file: 
           path: spikes_0_0-2073-1.gdf
           format: ID_TIME
+          scaling: 0.001
           ids: '*'
         tolerance: 0.00
 
@@ -31,5 +33,6 @@ experiments:
         spiketimes file: 
           path: spikes_2_0-5909-0.gdf
           format: ID_TIME
+          scaling: 0.001
           ids: '*'
         tolerance: 0.00

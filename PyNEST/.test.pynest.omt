@@ -10,6 +10,7 @@ experiments:
         spiketimes file: 
           path: data/spike_detector-7714-0.gdf
           format: ID_TIME
+          scaling: 0.001
           ids: '*'
         tolerance: 0.00
   # Note: test should start at 200ms!!!  
@@ -19,6 +20,7 @@ experiments:
         spiketimes file: 
           path: data/spike_detector-7715-0.gdf
           format: ID_TIME
+          scaling: 0.001
           ids: '*'
         tolerance: 0.00
 
@@ -30,5 +32,6 @@ experiments:
         spiketimes file: 
           path: data/spike_detector-7718-0.gdf
           format: ID_TIME
+          scaling: 0.001
           ids: '*'
         tolerance: 0.00

@@ -2,14 +2,31 @@ system: Test
 
 experiments:
 
-    # Note: test should start at 200ms, to avoid rapid spiking at start!!! 
     spike_rate_l23e_0:
         expected:
-            spike rate: 28.041426010459582
+            spike rate: 2.4698795180722892 # Note: this reflects only rate of cells that spiked at least once...
     spike_rate_l23e_1:
         expected:
-            spike rate: 16.57630089152219
+            spike rate: 2.9464285714285716
 
+    spike_rate_l23i:
+        expected:
+            spike rate: 5.401785714285714
+    spike_rate_l4e:
+        expected:
+            spike rate: 4.447115384615385
+    spike_rate_l4i:
+        expected:
+            spike rate: 5.865384615384615
     spike_rate_l5e:
         expected:
-            spike rate: 13.824355467259158
+            spike rate: 12.916666666666666
+    spike_rate_l5i:
+        expected:
+            spike rate: 15.0
+    spike_rate_l6e:
+        expected:
+            spike rate: 1.8478260869565217
+    spike_rate_l6i:
+        expected:
+            spike rate: 11.875

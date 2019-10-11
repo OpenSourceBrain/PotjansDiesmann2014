@@ -2,8 +2,8 @@ target: microcircuit.sli
 engine: NEST
 mep: .test.nestsli.mep
 experiments:
-  
-  # Note: test should start at 200ms, to avoid rapid spiking at start!!! 
+
+  # Note: this reflects only rate of cells that spiked at least once...
   spike_rate_l23e_0:
     observables:
       spike rate:
@@ -12,9 +12,11 @@ experiments:
           format: ID_TIME
           scaling: 0.001
           ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
         tolerance: 0.00
        
-  # Note: test should start at 200ms!!!  
   spike_rate_l23e_1:
     observables:
       spike rate:
@@ -23,10 +25,51 @@ experiments:
           format: ID_TIME
           scaling: 0.001
           ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+        
+  spike_rate_l23i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_0_1-2663-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+        
+  spike_rate_l4e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_1_0-4862-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+        
+  spike_rate_l4i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_1_1-5416-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
         tolerance: 0.00
 
 
-  # Note: test should start at 200ms!!! 
   spike_rate_l5e:
     observables:
       spike rate:
@@ -35,4 +78,46 @@ experiments:
           format: ID_TIME
           scaling: 0.001
           ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+
+  spike_rate_l5i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_2_1-6022-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+
+  spike_rate_l6e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_3_0-7469-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+
+  spike_rate_l6i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_3_1-7770-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
         tolerance: 0.00

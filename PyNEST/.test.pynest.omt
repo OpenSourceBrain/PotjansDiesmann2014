@@ -3,7 +3,6 @@ engine: PyNEST
 mep: .test.pynest.mep
 experiments:
   
-  # Note: test should start at 200ms, to avoid rapid spiking at start!!! 
   spike_rate_l23e_0:
     observables:
       spike rate:
@@ -40,7 +39,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.00
+        tolerance: 0.00014 ############################################# for nest 2.12 on omv....
   spike_rate_l4i:
     observables:
       spike rate:
@@ -78,6 +77,7 @@ experiments:
         start_time: 0.2
         end_time: 1
         tolerance: 0.00
+        
   spike_rate_l6e:
     observables:
       spike rate:

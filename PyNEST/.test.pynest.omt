@@ -12,9 +12,11 @@ experiments:
           format: ID_TIME
           scaling: 0.001
           ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
         tolerance: 0.00
-  # Note: test should start at 200ms!!!  
-  spike_rate_l23e_1:
+  spike_rate_l23i:
     observables:
       spike rate:
         spiketimes file: 
@@ -22,10 +24,36 @@ experiments:
           format: ID_TIME
           scaling: 0.001
           ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+        
+  spike_rate_l4e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7716-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+  spike_rate_l4i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7717-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
         tolerance: 0.00
 
-
-  # Note: test should start at 200ms!!! 
   spike_rate_l5e:
     observables:
       spike rate:
@@ -34,4 +62,43 @@ experiments:
           format: ID_TIME
           scaling: 0.001
           ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+  spike_rate_l5i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7719-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+  spike_rate_l6e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7720-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+  spike_rate_l6i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_detector-7721-0.gdf
+          format: ID_TIME
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
         tolerance: 0.00

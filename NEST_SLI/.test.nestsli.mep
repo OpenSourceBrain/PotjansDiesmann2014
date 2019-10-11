@@ -8,7 +8,6 @@ experiments:
     spike_rate_l23e_1:
         expected:
             spike rate: 2.9464285714285716
-
     spike_rate_l23i:
         expected:
             spike rate: 5.401785714285714

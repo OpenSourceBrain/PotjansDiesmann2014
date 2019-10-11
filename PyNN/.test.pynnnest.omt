@@ -2,3 +2,18 @@
  
 target: microcircuit.py 
 engine: PyNN_Nest
+mep: .test.pynn.mep
+experiments:
+  
+  spike_rate_l23e_0:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L23_E_0.txt
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.15

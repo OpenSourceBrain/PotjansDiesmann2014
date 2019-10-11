@@ -25,8 +25,7 @@ start_netw = time.time()
 n = network.Network(sim)
 n.setup(sim)
 end_netw = time.time()
-if sim.rank() == 0 :
-    print('Creating the network took %g s' % (end_netw - start_netw,))
+print('Creating the network took %g s on rank %i (of %i total)' % (end_netw - start_netw,sim.rank(),sim.num_processes()))
 
 # simulate
 if sim.rank() == 0 :

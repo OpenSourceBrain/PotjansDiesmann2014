@@ -18,11 +18,13 @@ import plotting
 # logging.basicConfig() # TODO! Remove if it runs without this line
 exec('import pyNN.%s as sim' % simulator)
 sim.setup(**simulator_params[simulator])
+print('Starting microcircuit model in %s' % simulator)
 import network
 
 # create network
 start_netw = time.time()
 n = network.Network(sim)
+
 n.setup(sim)
 end_netw = time.time()
 print('Creating the network took %g s on rank %i (of %i total)' % (end_netw - start_netw,sim.rank(),sim.num_processes()))
@@ -83,11 +85,11 @@ for layer in n.pops :
             ##        io.write_segment(segment)
             ##    except AssertionError :
             ##        pass
-            
+
             analogsignal = vm.segments[0].analogsignals[0]
             name = analogsignal.name
             source_ids = analogsignal.annotations['source_ids']
-            
+
             print('Saving data recorded for %s in pop %s%s, global ids: %s'%(name, layer, pop, source_ids))
             filename=system_params['output_path']+"/vm_%s_%s_%s.%s.dat"%(layer, pop, sim.rank(),simulator)
             times_vm_a = []
@@ -116,7 +118,8 @@ if create_raster_plot and sim.rank() == 0 :
                 n_rec[i][j] = round(N_full[layer][pop] * N_scaling * frac_record_spikes)
             else:
                 n_rec[i][j] = n_record
-    plotting.show_raster_bars(raster_t_min, raster_t_max, n_rec, frac_to_plot,
-                              system_params['output_path'] + '/')
+    if n_rec > 0:
+        plotting.show_raster_bars(raster_t_min, raster_t_max, n_rec, frac_to_plot,
+                              system_params['output_path'] + '/', N_scaling, K_scaling)
 
 sim.end()

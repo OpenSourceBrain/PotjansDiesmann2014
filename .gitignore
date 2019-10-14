@@ -22,3 +22,10 @@ NEST_SLI/*.gdf
 /NEST_SLI/README.txt
 /NEST_SLI/firing_rates.*.png
 /NEST_SLI/rasterplot.*.png
+/PyNN/LEMS_Sim_MicrocircuitNoInput.xml
+/PyNN/*.gv*
+/PyNN/jsbml.log
+/PyNN/libjhdf5.so
+/PyNN/*.nml.h5
+/PyNN/*.mod
+/PyNN/*.net.nml

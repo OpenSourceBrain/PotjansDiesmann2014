@@ -8,7 +8,15 @@ simulator_params = {
       'timestep'        : 0.1,    # ms
       'threads'         : 1,
       'sim_duration'    : 1000.,  # ms
-    }
+    },
+    'neuroml' :
+    {
+      'timestep'        : 0.1,    # ms
+      'threads'         : 1,
+      'sim_duration'    : 1000.,  # ms
+      'reference'       : 'Microcircuit',
+      'save_format'     : 'hdf5'
+    },
 }
 
 system_params = {

@@ -9,11 +9,11 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: results/spikes_L23_E_0.txt
+          path: results/spikes_L23_E_0.spikes
           format: TIME_ID
           scaling: 0.001
           ids: '*'
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.15
+        tolerance: 0

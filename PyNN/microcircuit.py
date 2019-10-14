@@ -10,7 +10,7 @@ from network_params import *
 # import logging # TODO! Remove if it runs without this line
 import pyNN
 import time
-from neo.io import PyNNTextIO
+#from neo.io import PyNNTextIO
 import plotting
 
 
@@ -40,13 +40,14 @@ if sim.rank() == 0 :
 start_writing = time.time()
 for layer in n.pops :
     for pop in n.pops[layer] :
-        spikes_file = system_params['output_path'] \
-             + "/spikes_" + layer + '_' + pop + '_' + str(sim.rank()) + ".txt"
+        ## Note: disabling PyNNTextIO save option, as this is not supported with later versions of Neo...
+        ##spikes_file = system_params['output_path'] \
+        ##     + "/spikes_" + layer + '_' + pop + '_' + str(sim.rank()) + ".txt"
         #print('Writing %s'%spikes_file)
-        io = PyNNTextIO(filename=spikes_file)
+        ##io = PyNNTextIO(filename=spikes_file)
         spikes = n.pops[layer][pop].get_data('spikes', gather=False)
-        for segment in spikes.segments :
-            io.write_segment(segment)
+        ##for segment in spikes.segments :
+        ##    io.write_segment(segment)
         
         spiketrains = spikes.segments[0].spiketrains
         spikes_file2 = system_params['output_path'] \
@@ -71,16 +72,17 @@ for layer in n.pops :
             
         if record_v :
             import numpy
-            v_file = system_params['output_path'] \
-                 + "/vm_" + layer + '_' + pop + '_' + str(sim.rank()) + ".txt"
-            io = PyNNTextIO(filename=v_file)
+            ## Note: disabling PyNNTextIO save option, as this is not supported with later versions of Neo...
+            ##v_file = system_params['output_path'] \
+            ##     + "/vm_" + layer + '_' + pop + '_' + str(sim.rank()) + ".txt"
+            ##io = PyNNTextIO(filename=v_file)
             #print('Writing %s'%v_file)
             vm = n.pops[layer][pop].get_data('v', gather=False)
-            for segment in vm.segments :
-                try :
-                    io.write_segment(segment)
-                except AssertionError :
-                    pass
+            ##for segment in vm.segments :
+            ##    try :
+            ##        io.write_segment(segment)
+            ##    except AssertionError :
+            ##        pass
             
             analogsignal = vm.segments[0].analogsignals[0]
             name = analogsignal.name

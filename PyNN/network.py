@@ -84,6 +84,8 @@ class Network:
 
         if sim.rank() == 0:
             print('w: %s' % self.w)
+            
+        net_generation_rng = NumpyRNG(12345, parallel_safe=True)
 
         for target_layer in layers :
             for target_pop in pops :
@@ -109,7 +111,7 @@ class Network:
                              (n_target * thal_params['n_thal']))) / n_target
                     FixedTotalNumberConnect(sim, self.thalamic_population,
                                             this_pop, K_thal, w_ext, w_rel * w_ext,
-                                            d_mean['E'], d_sd['E'])
+                                            d_mean['E'], d_sd['E'], rng=net_generation_rng)
                 # Recurrent inputs
                 for source_layer in layers :
                     for source_pop in pops :
@@ -125,7 +127,7 @@ class Network:
                                                 self.pops[target_layer][target_pop],\
                                                 K_full[target_index][source_index] * K_scaling,
                                                 weight, w_sd,
-                                                d_mean[source_pop], d_sd[source_pop])
+                                                d_mean[source_pop], d_sd[source_pop], rng=net_generation_rng)
 
 
 def create_weight_matrix():

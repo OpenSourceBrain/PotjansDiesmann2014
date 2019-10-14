@@ -5,11 +5,98 @@ engine: PyNN_Nest
 mep: .test.pynn.mep
 experiments:
   
-  spike_rate_l23e_0:
+  spike_rate_l23e:
     observables:
       spike rate:
         spiketimes file: 
           path: results/spikes_L23_E_0.spikes
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0
+  spike_rate_l23i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L23_I_0.spikes
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0
+        
+  spike_rate_l4e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L4_E_0.spikes
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0
+  spike_rate_l4i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L4_I_0.spikes
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0
+        
+  spike_rate_l5e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L5_E_0.spikes
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0
+  spike_rate_l5i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L5_I_0.spikes
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0
+        
+  spike_rate_l6e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L6_E_0.spikes
+          format: TIME_ID
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0
+  spike_rate_l6i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: results/spikes_L6_I_0.spikes
           format: TIME_ID
           scaling: 0.001
           ids: '*'

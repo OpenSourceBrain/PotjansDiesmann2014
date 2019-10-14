@@ -51,7 +51,7 @@ for layer in n.pops :
         spiketrains = spikes.segments[0].spiketrains
         spikes_file2 = system_params['output_path'] \
              + "/spikes_" + layer + '_' + pop + '_' + str(sim.rank()) + ".spikes"
-        print('Saving data recorded for spikes in pop %s, indices: %s to %s'%(pop, [s.annotations['source_id'] for s in spiketrains], spikes_file2))
+        #print('Saving data recorded for spikes in pop %s, indices: %s to %s'%(pop, [s.annotations['source_id'] for s in spiketrains], spikes_file2))
         ff = open(spikes_file2, 'w')
             
         for spiketrain in spiketrains:
@@ -87,22 +87,19 @@ for layer in n.pops :
             source_ids = analogsignal.annotations['source_ids']
             
             print('Saving data recorded for %s in pop %s%s, global ids: %s'%(name, layer, pop, source_ids))
+            filename=system_params['output_path']+"/vm_%s_%s_%s.%s.dat"%(layer, pop, sim.rank(),simulator)
+            times_vm_a = []
+            tt = numpy.array([t*sim.get_time_step()/1000. for t in range(len(analogsignal.transpose()[0]))])
+            times_vm_a.append(tt)
             for i in range(len(source_ids)):
-                times_vm_a = []
                 glob_id = source_ids[i]
                 index_in_pop = n.pops[layer][pop].id_to_index(glob_id)
-                filename=system_params['output_path']+"/vm_%s_%s_%s_%s.%s.dat"%(layer, pop, index_in_pop, sim.rank(),simulator)
-                
-                print("Writing data for cell %i = %s[%s] (gid: %i) to %s "%(i, pop,index_in_pop, glob_id, filename))
-                
+                #print("Writing data for cell %i = %s[%s] (gid: %i) to %s "%(i, pop,index_in_pop, glob_id, filename))
                 vm = analogsignal.transpose()[i]
-                if len(times_vm_a)==0:
-                    tt = numpy.array([t*sim.get_time_step()/1000. for t in range(len(vm))])
-                    times_vm_a.append(tt)
                 times_vm_a.append(vm/1000.)
 
-                times_vm = numpy.array(times_vm_a).transpose()
-                numpy.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')
+            times_vm = numpy.array(times_vm_a).transpose()
+            numpy.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')
 
 
 end_writing = time.time()

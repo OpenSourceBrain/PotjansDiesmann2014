@@ -1,6 +1,12 @@
 ### Large scale model of cortical network from Potjans and Diesmann, 2014
 
-See http://www.opensourcebrain.org/projects/potjansdiesmann2014 for more details
+Microcircuit model of early sensory cortex, displaying asynchronous irregular activity with layer-specific firing rates similar to the activity observed in cortex in the awake spontaneous condition. The inhibitory neurons have higher firing rates than the excitatory neurons, despite being modeled with identical intrinsic properties. Hence, this feature arises due to the connectivity of the network.
+
+The model represents the approximately 80,000 neurons under a square mm of cortical surface, organized into layers 2/3, 4, 5, and 6. Each layer contains an excitatory and an inhibitory population of leaky integrate-and-fire neurons with current-based synapses, connected with delays. The population-specific connectivity and external Poisson inputs are based on the integration of anatomical and physiological data mainly from cat V1 and rat S1. The possibility is included of providing an additional thalamic stimulus to layers 4 and 6, which propagates across layers in a realistic fashion partly due to the target specificity of feedback projections across layers.
+
+<figure>
+  <img src="https://github.com/OpenSourceBrain/PotjansDiesmann2014/blob/master/images/pynn_nest_plots_1.0.png" alt="Raster and bar plots of spiking activity" width="400">
+</figure> 
 
 [![Build Status](https://travis-ci.org/OpenSourceBrain/PotjansDiesmann2014.svg?branch=master)](https://travis-ci.org/OpenSourceBrain/PotjansDiesmann2014)
 

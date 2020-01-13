@@ -6,7 +6,7 @@ The model represents the approximately 80,000 neurons under a square mm of corti
 
 <table>
 <tr>
-<td><img alt="Raster and bar plots of spiking activity" src="images/pynn_nest_plots_1.0.png" height="300"/></td>
+<td><img alt="Raster and bar plots of spiking activity" src="https://raw.githubusercontent.com/OpenSourceBrain/PotjansDiesmann2014/master/images/pynn_nest_plots_1.0.png" height="300"/></td>
 </tr>
 </table>
 

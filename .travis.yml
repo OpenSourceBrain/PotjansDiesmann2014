@@ -50,4 +50,5 @@ install:
 
 script:
     - omv all -V
+    - omv list -V 
 

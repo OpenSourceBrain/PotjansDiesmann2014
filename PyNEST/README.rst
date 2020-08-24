@@ -1,3 +1,5 @@
+(Copy of files taken from https://github.com/nest/nest-simulator/tree/master/pynest/examples/Potjans_2014, commit: 2c7f7f18e4851ab329c600c1bd63f5fca6baf090)
+
 PyNEST microcircuit
 ===================
 

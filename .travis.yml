@@ -33,6 +33,13 @@ env:
 
 install:
     
+    - pip install scipy # Why is this needed? Doesn't seem to get installed correctly with addons above...
+    
+    # Install OMV
+
+    - pip install git+https://github.com/OpenSourceBrain/osb-model-validation
+    - omv list -V 
+
     # Create a small scale network to test for NEST_SLI
     - cd NEST_SLI/test/
     - ./create_small_network_sim.sh
@@ -41,9 +48,6 @@ install:
     
     - ./make_tests.sh
 
-    # Install OMV
-
-    - pip install git+https://github.com/OpenSourceBrain/osb-model-validation
 
 
 script:

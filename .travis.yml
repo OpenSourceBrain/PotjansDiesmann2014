@@ -33,7 +33,7 @@ env:
 
 install:
     
-    - pip install scipy # Why is this needed? Doesn't seem to get installed correctly with addons above...
+    - pip install scipy matplotlib # Why is this needed? Doesn't seem to get installed correctly with addons above...
     
     # Install OMV
 

@@ -10,7 +10,7 @@ The model represents the approximately 80,000 neurons under a square mm of corti
 </tr>
 </table>
 
-[![Build Status](https://travis-ci.org/OpenSourceBrain/PotjansDiesmann2014.svg?branch=master)](https://travis-ci.org/OpenSourceBrain/PotjansDiesmann2014)
+[![Build Status](https://travis-ci.com/OpenSourceBrain/PotjansDiesmann2014.svg?branch=master)](https://travis-ci.com/OpenSourceBrain/PotjansDiesmann2014)
 
 [![DOI](https://www.zenodo.org/badge/21612755.svg)](https://www.zenodo.org/badge/latestdoi/21612755)
 

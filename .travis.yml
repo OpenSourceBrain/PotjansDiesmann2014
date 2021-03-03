@@ -1,6 +1,6 @@
 # Framework for running automated tests on OSB using Travis-CI, see https://github.com/OpenSourceBrain/osb-model-validation
 
-dist: xenial
+dist: bionic  # bionic + py3.6 required for building Nest using omv...
 
 addons:
   apt:
@@ -18,7 +18,8 @@ addons:
     
     
 language: python
-python: 3.7
+python: 
+    - 3.6 # bionic + py3.6 required for building Nest using omv...
 
 
 env:

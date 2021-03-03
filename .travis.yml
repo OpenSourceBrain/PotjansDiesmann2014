@@ -1,7 +1,6 @@
 # Framework for running automated tests on OSB using Travis-CI, see https://github.com/OpenSourceBrain/osb-model-validation
 
-dist: trusty
-sudo: false  
+dist: bionic  # bionic + py3.6 required for building Nest using omv...
 
 addons:
   apt:
@@ -19,14 +18,15 @@ addons:
     
     
 language: python
-python: 2.7
+python:
+    - 2.7 
+    - 3.6 # bionic + py3.6 required for building Nest using omv...
 
-virtualenv:
-    system_site_packages: true
 
 env:
     - OMV_ENGINE=NEST
-    - OMV_ENGINE=PyNEST
+    - OMV_ENGINE=PyNEST:2.18.0   # try a specific version of NEST
+    #- OMV_ENGINE=PyNEST:2.20.0   # try a specific version of NEST
     #- OMV_ENGINE=PyNN_Brian1
     #- OMV_ENGINE=PyNN_NEURON
     - OMV_ENGINE=PyNN_Nest
@@ -35,6 +35,13 @@ env:
 
 install:
     
+    - pip install scipy matplotlib # Why is this needed? Doesn't seem to get installed correctly with addons above...
+    
+    # Install OMV
+
+    - pip install git+https://github.com/OpenSourceBrain/osb-model-validation
+    - omv list -V 
+
     # Create a small scale network to test for NEST_SLI
     - cd NEST_SLI/test/
     - ./create_small_network_sim.sh
@@ -43,9 +50,6 @@ install:
     
     - ./make_tests.sh
 
-    # Install OMV
-
-    - pip install git+https://github.com/OpenSourceBrain/osb-model-validation
 
 
 script:

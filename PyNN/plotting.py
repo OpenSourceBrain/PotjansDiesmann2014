@@ -13,7 +13,7 @@ def show_raster_bars(t_start, t_stop, n_rec, frac_to_plot, path, n_scaling, k_sc
 
     # Read out spikes for each population
     layer_list = ['L23', 'L4', 'L5', 'L6']
-    pop_list = ['E', 'I'] 
+    pop_list = ['E', 'I']
 
     for i in range(8):
         layer = int(i / 2)
@@ -61,7 +61,9 @@ def show_raster_bars(t_start, t_stop, n_rec, frac_to_plot, path, n_scaling, k_sc
         t_spikes = t_spikes[np.where(ids < num_neurons + id_count + 1)[0]]
         ids = ids[np.where(ids < num_neurons + id_count + 1)[0]]
         axarr[0].plot(t_spikes, ids, '.', color=color[pop], markersize=1)
-        id_count = ids[-1]
+        print('ids for layer %s, pop %s: %s'%(layer, pop, ids))
+        if len(ids)>0:
+            id_count = ids[-1]
 
     # Plot bar plot
     axarr[1].barh(np.arange(0, 8, 1), rates[::-1], color=color[::-1] * 4)
@@ -74,8 +76,7 @@ def show_raster_bars(t_start, t_stop, n_rec, frac_to_plot, path, n_scaling, k_sc
     axarr[1].set_yticks(np.arange(0, 8, 1.0))
     axarr[1].set_yticklabels(pops[::-1])
     axarr[1].set_xlabel('rate (spikes/s)')
-    
+
     plt.title("Network, N scaling: %s, K scaling: %s"%(n_scaling,k_scaling), x=-.2)
 
     plt.savefig(path + 'result.png')
-

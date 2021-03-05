@@ -1,14 +1,14 @@
 # Script for running automated tests on OSB using Travis-CI, see https://github.com/OpenSourceBrain/osb-model-validation
- 
-target: microcircuit.py 
+
+target: microcircuit.py
 engine: PyNN_Nest
 mep: .test.pynn.mep
 experiments:
-  
+
   spike_rate_l23e:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L23_E_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -16,11 +16,11 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
+        tolerance: 0.0016251728907331043  # Non zero tolerance to for testing on py2 & py3
   spike_rate_l23i:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L23_I_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -28,12 +28,12 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
-        
+        tolerance: 0.0327770710169873  # Non zero tolerance to for testing on py2 & py3
+
   spike_rate_l4e:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L4_E_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -41,11 +41,11 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
+        tolerance: 0.01578540832806687  # Non zero tolerance to for testing on py2 & py3
   spike_rate_l4i:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L4_I_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -53,12 +53,12 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
-        
+        tolerance: 0.006658343736995404  # Non zero tolerance to for testing on py2 & py3
+
   spike_rate_l5e:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L5_E_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -66,11 +66,11 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
+        tolerance: 0.03693746347165395  # Non zero tolerance to for testing on py2 & py3
   spike_rate_l5i:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L5_I_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -78,12 +78,12 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
-        
+        tolerance: 0.03164556962025324  # Non zero tolerance to for testing on py2 & py3
+
   spike_rate_l6e:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L6_E_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -91,11 +91,11 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
+        tolerance: 0.0701693443334781  # Non zero tolerance to for testing on py2 & py3
   spike_rate_l6i:
     observables:
       spike rate:
-        spiketimes file: 
+        spiketimes file:
           path: results/spikes_L6_I_0.spikes
           format: TIME_ID
           scaling: 0.001
@@ -103,4 +103,4 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0
+        tolerance: 0.05316630074475879  # Non zero tolerance to for testing on py2 & py3

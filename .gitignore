@@ -29,3 +29,4 @@ NEST_SLI/*.gdf
 /PyNN/*.nml.h5
 /PyNN/*.mod
 /PyNN/*.net.nml
+/PyNN/tests.log

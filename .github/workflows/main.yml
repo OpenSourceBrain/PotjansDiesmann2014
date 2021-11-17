@@ -13,19 +13,19 @@ jobs:
     strategy:
       matrix:
         python-version: [ 3.7 ]
-        engine: [ NEST, PyNEST:2.18.0, PyNN_Nest, jNeuroML_validate ]
+        engine: [ NEST, PyNEST, PyNN_Nest, jNeuroML_validate ]
         
     steps:
     - uses: actions/checkout@v2
+    
     - name: Set up Python  ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version:  ${{ matrix.python-version }}
+        
     - name: Install OMV
       run: |
         pip install git+https://github.com/OpenSourceBrain/osb-model-validation
-    - name: Install additional packages
-      run: |
         pip install scipy sympy matplotlib cython tables
         
     - name: Create a small scale network to test for NEST_SLI
@@ -39,6 +39,7 @@ jobs:
     - name: Run OMV tests on engine ${{ matrix.engine }}
       run: |
         omv all -V --engine=${{ matrix.engine }}
+        
     - name: OMV final version info
       run: |
         omv list -V # list installed engines

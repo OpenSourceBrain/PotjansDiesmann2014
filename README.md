@@ -10,7 +10,7 @@ The model represents the approximately 80,000 neurons under a square mm of corti
 </tr>
 </table>
 
-[![Continuous builds](https://github.com/OpenSourceBrain/PotjansDiesmann2014/actions/workflows/main.yml/badge.svg)](https://github.com/OpenSourceBrain/PotjansDiesmann2014/actions/workflows/main.yml)
+[![Continuous builds](https://github.com/OpenSourceBrain/PotjansDiesmann2014/actions/workflows/omv-ci.yml/badge.svg)](https://github.com/OpenSourceBrain/PotjansDiesmann2014/actions/workflows/omv-ci.yml)
 
 [![DOI](https://www.zenodo.org/badge/21612755.svg)](https://www.zenodo.org/badge/latestdoi/21612755)
 

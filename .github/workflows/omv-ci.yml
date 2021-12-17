@@ -11,14 +11,13 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: [ 3.7, 3.9 ]
-        engine: [ "NEST:2.18.0", "NEST:2.20.0", "NEST:3.0", "NEST:3.1", PyNEST, PyNN_Nest, jNeuroML_validate ]
+        engine: [ "NEST:2.18.0", "NEST:2.20.0", "NEST:3.0", PyNEST, PyNN_Nest, jNeuroML_validate ]
         exclude:
           - python-version: 3.7
             engine: "NEST:3.0"
-          - python-version: 3.7
-            engine: "NEST:3.1"
             
     steps:
     - uses: actions/checkout@v2

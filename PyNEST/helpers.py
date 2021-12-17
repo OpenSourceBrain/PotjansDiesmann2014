@@ -30,7 +30,6 @@ microcircuit.
 from matplotlib.patches import Polygon
 import matplotlib.pyplot as plt
 import os
-import sys
 import numpy as np
 if 'DISPLAY' not in os.environ:
     import matplotlib
@@ -43,8 +42,8 @@ def num_synapses_from_conn_probs(conn_probs, popsize1, popsize2):
 
     Here it is irrelevant which population is source and which target.
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     conn_probs
         Matrix of connection probabilities.
     popsize1
@@ -63,7 +62,7 @@ def num_synapses_from_conn_probs(conn_probs, popsize1, popsize2):
 
 
 def postsynaptic_potential_to_current(C_m, tau_m, tau_syn):
-    """ Computes a factor to convert postsynaptic potentials to currents.
+    r""" Computes a factor to convert postsynaptic potentials to currents.
 
     The time course of the postsynaptic potential ``v`` is computed as
     :math: `v(t)=(i*h)(t)`
@@ -216,7 +215,7 @@ def plot_raster(path, name, begin, end, N_scaling):
     path
         Path where the spike times are stored.
     name
-        Name of the spike detector.
+        Name of the spike recorder.
     begin
         Time point (in ms) to start plotting spikes (included).
     end
@@ -237,8 +236,8 @@ def plot_raster(path, name, begin, end, N_scaling):
     last_node_id = node_ids[-1, -1]
     mod_node_ids = np.abs(node_ids - last_node_id) + 1
 
-    label_pos = [(mod_node_ids[i, 0] + mod_node_ids[i + 1, 1]) /
-                 2. for i in np.arange(0, 8, 2)]
+    label_pos = [(mod_node_ids[i, 0] + mod_node_ids[i + 1, 1]) / 2.
+                 for i in np.arange(0, 8, 2)]
 
     stp = 1
     if N_scaling > 0.1:
@@ -260,7 +259,7 @@ def firing_rates(path, name, begin, end):
     """ Computes mean and standard deviation of firing rates per population.
 
     The firing rate of each neuron in each population is computed and stored
-    in a .dat file in the directory of the spike detectors. The mean firing
+    in a .dat file in the directory of the spike recorders. The mean firing
     rate and its standard deviation are printed out for each population.
 
     Parameters
@@ -268,7 +267,7 @@ def firing_rates(path, name, begin, end):
     path
         Path where the spike times are stored.
     name
-        Name of the spike detector.
+        Name of the spike recorder.
     begin
         Time point (in ms) to start calculating the firing rates (included).
     end
@@ -354,25 +353,25 @@ def boxplot(path, populations):
 
 
 def __gather_metadata(path, name):
-    """ Reads names and ids of spike detectors and first and last ids of
+    """ Reads names and ids of spike recorders and first and last ids of
     neurons in each population.
 
     If the simulation was run on several threads or MPI-processes, one name per
-    spike detector per MPI-process/thread is extracted.
+    spike recorder per MPI-process/thread is extracted.
 
     Parameters
     ------------
     path
-        Path where the spike detector files are stored.
+        Path where the spike recorder files are stored.
     name
-        Name of the spike detector, typically ``spike_detector``.
+        Name of the spike recorder, typically ``spike_recorder``.
 
     Returns
     -------
     sd_files
-        Names of all files written by spike detectors.
+        Names of all files written by spike recorders.
     sd_names
-        Names of all spike detectors.
+        Names of all spike recorders.
     node_ids
         Lowest and highest id of nodes in each population.
 
@@ -383,7 +382,7 @@ def __gather_metadata(path, name):
     for fn in sorted(os.listdir(path)):
         if fn.startswith(name):
             sd_files.append(fn)
-            # spike detector name and its ID
+            # spike recorder name and its ID
             fnsplit = '-'.join(fn.split('-')[:-1])
             if fnsplit not in sd_names:
                 sd_names.append(fnsplit)
@@ -391,21 +390,21 @@ def __gather_metadata(path, name):
     # load node IDs
     node_idfile = open(path + 'population_nodeids.dat', 'r')
     node_ids = []
-    for l in node_idfile:
-        node_ids.append(l.split())
+    for node_id in node_idfile:
+        node_ids.append(node_id.split())
     node_ids = np.array(node_ids, dtype='i4')
     return sd_files, sd_names, node_ids
 
 
 def __load_spike_times(path, name, begin, end):
-    """ Loads spike times of each spike detector.
+    """ Loads spike times of each spike recorder.
 
     Parameters
     ----------
     path
         Path where the files with the spike times are stored.
     name
-        Name of the spike detector.
+        Name of the spike recorder.
     begin
         Time point (in ms) to start loading spike times (included).
     end

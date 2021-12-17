@@ -30,8 +30,8 @@ jobs:
         
     - name: Install OMV
       run: |
-        pip install git+https://github.com/OpenSourceBrain/osb-model-validation
-        pip install scipy sympy matplotlib cython tables
+        pip install git+https://github.com/OpenSourceBrain/osb-model-validation        
+        pip install scipy sympy matplotlib cython pandas tables
         
     - name: Create a small scale network to test for NEST_SLI
       run: |

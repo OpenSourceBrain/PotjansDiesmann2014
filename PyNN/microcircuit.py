@@ -56,10 +56,18 @@ for layer in n.pops :
              + "/spikes_" + layer + '_' + pop + '_' + str(sim.rank()) + ".spikes"
         #print('Saving data recorded for spikes in pop %s, indices: %s to %s'%(pop, [s.annotations['source_id'] for s in spiketrains], spikes_file2))
         ff = open(spikes_file2, 'w')
+
+
+        def get_source_id(spiketrain):
+            if 'source_id' in spiketrain.annotations:
+                return spiketrain.annotations['source_id']
+
+            elif 'channel_id' in spiketrain.annotations: # See https://github.com/NeuralEnsemble/PyNN/pull/762
+                return spiketrain.annotations['channel_id']
             
         for spiketrain in spiketrains:
-            source_id = spiketrain.annotations['source_id']
-            source_index = spiketrain.annotations['source_index']
+            source_id = get_source_id(spiketrain)
+            source_index = n.pops[layer][pop].id_to_index(source_id)
                 
             '''print("Writing spike data for cell %s[%s] (gid: %i): %i spikes: [%s,...,%s] "% \
                       (pop,

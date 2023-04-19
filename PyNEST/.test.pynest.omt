@@ -1,2 +1,104 @@
 target: run_microcircuit.py
 engine: PyNEST
+mep: .test.pynest.mep
+experiments:
+  
+  spike_rate_l23e_0:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7718-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+  spike_rate_l23i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7719-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+        
+  spike_rate_l4e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7720-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00014 ############################################# for nest 2.12 on omv....
+  spike_rate_l4i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7721-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+
+  spike_rate_l5e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7722-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+  spike_rate_l5i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7723-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+        
+  spike_rate_l6e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7724-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00
+  spike_rate_l6i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7725-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.00

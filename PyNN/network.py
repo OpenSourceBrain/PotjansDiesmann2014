@@ -1,214 +1,425 @@
-###################################################
-###     	Network definition		###        
-###################################################
+# -*- coding: utf-8 -*-
+"""
+Main file for the microcircuit.
 
-from network_params import *
-import scaling
-from connectivity import FixedTotalNumberConnect
-from pyNN.random import NumpyRNG, RandomDistribution
-from pyNN.space import RandomStructure, Cuboid
+Based on original PyNEST version by Hendrik Rothe, Hannah Bos, Sacha van Albada; May 2016
+Adapted for PyNN by Andrew Davison, December 2017
+"""
+
+from importlib import import_module
 import numpy as np
-import math
+import os
+from helpers import adj_w_ext_to_K
+from helpers import synapses_th_matrix
+from helpers import get_total_number_of_synapses
+from helpers import get_weight
+from helpers import plot_raster
+from helpers import fire_rate
+from helpers import boxplot
+from helpers import compute_DC
+from pyNN.random import RandomDistribution
 
 
 class Network:
+    """ Handles the setup of the network parameters and
+    provides functions to connect the network and devices.
 
-    def __init__(self, sim):
-        return None
+    Arguments
+    ---------
+    sim_dict
+        dictionary containing all parameters specific to the simulation
+        such as the directory the data is stored in and the seeds
+        (see: sim_params.py)
+    net_dict
+         dictionary containing all parameters specific to the neurons
+         and the network (see: network_params.py)
 
-    def setup(self, sim) :
-        # Create matrix of synaptic weights
-        self.w = create_weight_matrix()
-        model = getattr(sim, 'IF_curr_exp')
-        script_rng = NumpyRNG(seed=6508015, parallel_safe=parallel_safe)
-        distr = RandomDistribution('normal', [V0_mean, V0_sd], rng=script_rng)
+    Keyword Arguments
+    -----------------
+    stim_dict
+        dictionary containing all parameter specific to the stimulus
+        (see: stimulus_params.py)
 
-        # Create cortical populations
-        self.pops = {}
-        layer_structures = {}
-        total_cells = 0 
-        
-        x_dim_scaled = x_dimension * math.sqrt(N_scaling)
-        z_dim_scaled = z_dimension * math.sqrt(N_scaling)
-        
-        default_cell_radius = 10 # for visualisation 
-        default_input_radius = 5 # for visualisation 
-        
-        for layer in layers:
-            self.pops[layer] = {}
-            for pop in pops:
-                
-                y_offset = 0
-                if layer == 'L6': y_offset = layer_thicknesses['L6']/2
-                if layer == 'L5': y_offset = layer_thicknesses['L6']+layer_thicknesses['L5']/2
-                if layer == 'L4': y_offset = layer_thicknesses['L6']+layer_thicknesses['L5']+layer_thicknesses['L4']/2
-                if layer == 'L23': y_offset = layer_thicknesses['L6']+layer_thicknesses['L5']+layer_thicknesses['L4']+layer_thicknesses['L23']/2
-                
-                layer_volume = Cuboid(x_dim_scaled,layer_thicknesses[layer],z_dim_scaled)
-                layer_structures[layer] = RandomStructure(layer_volume, origin=(0,y_offset,0))
-                
-                self.pops[layer][pop] = sim.Population(int(N_full[layer][pop] * \
-                    N_scaling), model, cellparams=neuron_params, \
-                    structure=layer_structures[layer], label='%s_%s'%(layer,pop))
-                    
-                    
-                self.pops[layer][pop].initialize(v=distr)
-                # Store whether population is inhibitory or excitatory
-                self.pops[layer][pop].annotate(type=pop)
-                
-                self.pops[layer][pop].annotate(radius=default_cell_radius)
-                self.pops[layer][pop].annotate(structure=str(layer_structures[layer]))
-                
-                this_pop = self.pops[layer][pop]
-                color='0 0 0'
-                radius = 10
-                try:
-                    import opencortex.utils.color as occ
-                    if layer == 'L23':
-                        if pop=='E': color = occ.L23_PRINCIPAL_CELL
-                        if pop=='I': color = occ.L23_INTERNEURON
-                    if layer == 'L4':
-                        if pop=='E': color = occ.L4_PRINCIPAL_CELL
-                        if pop=='I': color = occ.L4_INTERNEURON
-                    if layer == 'L5':
-                        if pop=='E': color = occ.L5_PRINCIPAL_CELL
-                        if pop=='I': color = occ.L5_INTERNEURON
-                    if layer == 'L6':
-                        if pop=='E': color = occ.L6_PRINCIPAL_CELL
-                        if pop=='I': color = occ.L6_INTERNEURON
-                            
-                    self.pops[layer][pop].annotate(color=color)
-                except:
-                    # Don't worry about it, it's just metadata
-                    pass
-                print("Created population %s with %i cells (color: %s)"%(this_pop.label,this_pop.size, color))
-
-                
-                total_cells += this_pop.size
-                # Spike recording
-                if record_fraction:
-                    num_spikes = int(round(this_pop.size * frac_record_spikes))
-                else:
-                    num_spikes = n_record
-                this_pop[0:num_spikes].record('spikes')
-
-                # Membrane potential recording
-                if record_v:
-                    if record_fraction:
-                        num_v = int(round(this_pop.size * frac_record_v))
-
-                    else:
-                        num_v = n_record_v
-                    this_pop[0:num_v].record('v')
-
-        print("Finished creating all cell populations (%i cells)"%total_cells)
-        # Create thalamic population
-        if thalamic_input:
-            
-            print("Adding thalamic input")
-            layer_volume = Cuboid(x_dimension,layer_thicknesses['thalamus'],z_dimension)
-            layer_structure = RandomStructure(layer_volume, origin=(0,thalamus_offset,0))
-            self.thalamic_population = sim.Population(
-                    thal_params['n_thal'],
-                    sim.SpikeSourcePoisson,
-                    {'rate': thal_params['rate'],
-                     'start': thal_params['start'],
-                     'duration': thal_params['duration']},
-                     structure=layer_structure,
-                     label='thalamic_input')
-
-        # Compute DC input before scaling
-        if input_type == 'DC':
-            self.DC_amp = {}
-            for target_layer in layers:
-                self.DC_amp[target_layer] = {}
-                for target_pop in pops:
-                    self.DC_amp[target_layer][target_pop] = bg_rate * \
-                    K_ext[target_layer][target_pop] * w_mean * neuron_params['tau_syn_E'] / 1000.
+    """
+    def __init__(self, sim_dict, net_dict, stim_dict=None):
+        self.sim_dict = sim_dict
+        self.net_dict = net_dict
+        if stim_dict is not None:
+            self.stim_dict = stim_dict
         else:
-            self.DC_amp = {'L23': {'E': 0., 'I': 0.},
-                           'L4' : {'E': 0., 'I': 0.},
-                           'L5' : {'E': 0., 'I': 0.},
-                           'L6' : {'E': 0., 'I': 0.}}
-
-        # Scale and connect
-
-        # In-degrees of the full-scale model
-        K_full = scaling.get_indegrees()
-
-        if K_scaling != 1 :
-            self.w, self.w_ext, self.K_ext, self.DC_amp = scaling.adjust_w_and_ext_to_K(K_full, K_scaling, self.w, self.DC_amp)
-        else:
-            self.w_ext = w_ext
-            self.K_ext = K_ext
-
-        if sim.rank() == 0:
-            print('w: %s' % self.w)
+            self.stim_dict = None
+        self.sim = import_module("pyNN.%s" % sim_dict["simulator"])
+        self.data_path = sim_dict['data_path']
         
-        net_generation_rng = NumpyRNG(12345, parallel_safe=True)
 
-        for target_layer in layers :
-            for target_pop in pops :
-                target_index = structure[target_layer][target_pop]
-                this_pop = self.pops[target_layer][target_pop]
-                # External inputs
-                if input_type == 'DC' or K_scaling != 1 :
-                    this_pop.set(i_offset=self.DC_amp[target_layer][target_pop])
-                if input_type == 'poisson':
-                    poisson_generator = sim.Population(this_pop.size,
-                                                       sim.SpikeSourcePoisson, 
-                                                       {'rate': bg_rate * self.K_ext[target_layer][target_pop]},
-                                                       structure=layer_structures[target_layer],
-                                                       label='input_%s_%s'%(target_layer,target_pop))
-                                                       
-                    poisson_generator.annotate(color='0.5 0.5 0')
-                    poisson_generator.annotate(radius=default_input_radius)
-                    
-                    conn = sim.OneToOneConnector()
-                    syn = sim.StaticSynapse(weight=self.w_ext)
-                    sim.Projection(poisson_generator, this_pop, conn, syn, receptor_type='excitatory')
-                if thalamic_input:
-                    # Thalamic inputs
-                    if sim.rank() == 0 :
-                        print('Creating thalamic connections to %s%s' % (target_layer, target_pop))
-                    C_thal=thal_params['C'][target_layer][target_pop]
-                    n_target=N_full[target_layer][target_pop]
-                    K_thal=round(np.log(1 - C_thal) / np.log((n_target * thal_params['n_thal'] - 1.) /
-                             (n_target * thal_params['n_thal']))) / n_target
-                    FixedTotalNumberConnect(sim, self.thalamic_population,
-                                            this_pop, K_thal, w_ext, w_rel * w_ext,
-                                            d_mean['E'], d_sd['E'], rng=net_generation_rng)
-                # Recurrent inputs
-                for source_layer in layers :
-                    for source_pop in pops :
-                        source_index=structure[source_layer][source_pop]
-                        if sim.rank() == 0:
-                            print('Creating connections from %s%s to %s%s' % (source_layer, source_pop, target_layer, target_pop))
-                        weight=self.w[target_index][source_index]
-                        if source_pop == 'E' and source_layer == 'L4' and target_layer == 'L23' and target_pop == 'E':
-                            w_sd=weight * w_rel_234
-                        else:
-                            w_sd=abs(weight * w_rel)
-                        FixedTotalNumberConnect(sim, self.pops[source_layer][source_pop],
-                                                self.pops[target_layer][target_pop],\
-                                                K_full[target_index][source_index] * K_scaling,
-                                                weight, w_sd,
-                                                d_mean[source_pop], d_sd[source_pop], rng=net_generation_rng)
+    def setup_pyNN(self):
+        """ Reset and configure the simulator.
+
+        Where the simulator is NEST,
+        the number of seeds for the NEST-kernel is computed, based on the
+        total number of MPI processes and threads of each.
+        """
+
+        master_seed = self.sim_dict['master_seed']
+        if self.sim_dict['simulator'] == "spiNNaker":
+            N_tp = 1
+        else:
+            N_tp = self.sim.num_processes() * self.sim_dict['local_num_threads']
+        rng_seeds = list(range(master_seed + 1 + N_tp, master_seed + 1 + (2 * N_tp)))
+        grng_seed = master_seed + N_tp
+        self.pyrngs = [np.random.RandomState(s) 
+                       for s in list(range(master_seed, master_seed + N_tp))]
+        self.sim_resolution = self.sim_dict['sim_resolution']
+        self.sim.setup(timestep=self.sim_resolution,
+                       threads=self.sim_dict['local_num_threads'],
+                       grng_seed=grng_seed,
+                       rng_seeds=rng_seeds)
+        if self.sim.rank() == 0:
+            print('Master seed: %i ' % master_seed)
+            print('Number of total processes: %i' % N_tp)
+            print('Seeds for random number generators of virtual processes: %r' % rng_seeds)
+            print('Global random number generator seed: %i' % grng_seed)
+            if os.path.isdir(self.sim_dict['data_path']):
+                print('data directory already exists')
+            else:
+                os.makedirs(self.sim_dict['data_path'])
+                print('data directory created')
+            print('Data will be written to %s' % self.data_path)
 
 
-def create_weight_matrix():
-    w=np.zeros([n_layers * n_pops_per_layer, n_layers * n_pops_per_layer])
-    for target_layer in layers:
-        for target_pop in pops:
-            target_index=structure[target_layer][target_pop]
-            for source_layer in layers:
-                for source_pop in pops:
-                    source_index=structure[source_layer][source_pop]
-                    if source_pop == 'E':
-                        if source_layer == 'L4' and target_layer == 'L23' and target_pop == 'E':
-                            w[target_index][source_index]=w_234
-                        else:
-                            w[target_index][source_index]=w_mean
+    def create_populations(self):
+        """ Creates the neuronal populations.
+
+        The neuronal populations are created and the parameters are assigned
+        to them. The initial membrane potential of the neurons is drawn from a
+        normal distribution. Scaling of the number of neurons and of the
+        synapses is performed. If scaling is performed extra DC input is added
+        to the neuronal populations.
+
+        """
+        self.N_full = self.net_dict['N_full']
+        self.N_scaling = self.net_dict['N_scaling']
+        self.K_scaling = self.net_dict['K_scaling']
+        self.synapses = get_total_number_of_synapses(self.net_dict)
+        self.synapses_scaled = self.synapses * self.K_scaling
+        self.nr_neurons = self.N_full * self.N_scaling
+        self.K_ext = self.net_dict['K_ext'] * self.K_scaling
+        self.w_from_PSP = get_weight(self.net_dict['PSP_e'], self.net_dict)
+        self.weight_mat = get_weight(
+            self.net_dict['PSP_mean_matrix'], self.net_dict
+            )
+        self.weight_mat_std = self.net_dict['PSP_std_matrix']
+        self.w_ext = self.w_from_PSP
+        if self.net_dict['poisson_input']:
+            self.DC_amp_e = np.zeros(len(self.net_dict['populations']))
+        else:
+            if self.sim.rank() == 0:
+                print(
+                    '''
+                    no poisson input provided
+                    calculating dc input to compensate
+                    '''
+                    )
+            self.DC_amp_e = compute_DC(self.net_dict, self.w_ext)
+
+        if self.sim.rank() == 0:
+            print(
+                'The number of neurons is scaled by a factor of: %.2f'
+                % self.N_scaling
+                )
+            print(
+                'The number of synapses is scaled by a factor of: %.2f'
+                % self.K_scaling
+                )
+
+        # Scaling of the synapses.
+        if self.K_scaling != 1:
+            synapses_indegree = self.synapses / (
+                self.N_full.reshape(len(self.N_full), 1) * self.N_scaling)
+            self.weight_mat, self.w_ext, self.DC_amp_e = adj_w_ext_to_K(
+                synapses_indegree, self.K_scaling, self.weight_mat,
+                self.w_from_PSP, self.DC_amp_e, self.net_dict, self.stim_dict
+                )
+
+        # Create cortical populations.
+        self.pops = []
+        neuron_model = getattr(self.sim, self.net_dict['neuron_model'])
+        parameters = {
+            'tau_syn_E': self.net_dict['neuron_params']['tau_syn_ex'],
+            'tau_syn_I': self.net_dict['neuron_params']['tau_syn_in'],
+            'v_rest': self.net_dict['neuron_params']['E_L'],
+            'v_thresh': self.net_dict['neuron_params']['V_th'],
+            'v_reset':  self.net_dict['neuron_params']['V_reset'],
+            'tau_refrac': self.net_dict['neuron_params']['t_ref'],
+            'cm': self.net_dict['neuron_params']['C_m'] * 0.001,  # pF --> nF
+            'tau_m': self.net_dict['neuron_params']['tau_m']
+        }
+        v_init = RandomDistribution("normal",
+                                    [self.net_dict['neuron_params']['V0_mean'],
+                                     self.net_dict['neuron_params']['V0_sd']],
+                                   )  # todo: specify rng
+        for i, pop in enumerate(self.net_dict['populations']):
+            parameters['i_offset'] = self.DC_amp_e[i] * 0.001   # pA --> nA
+            population = self.sim.Population(int(self.nr_neurons[i]),
+                                             neuron_model(**parameters),
+                                             label=pop)
+            population.initialize(v=v_init)
+            self.pops.append(population)
+
+    def create_devices(self):
+        """
+        Setup recording
+        """
+        
+        for i, pop in enumerate(self.pops):
+            pop.record(self.net_dict['to_record'], sampling_interval=self.sim_dict['rec_V_int'])
+        if self.sim.rank() == 0:
+            print('Recording {}'.format(self.sim_dict['rec_V_int']))
+ 
+    def create_thalamic_input(self):
+        """ This function creates the thalamic neuronal population if this
+        is specified in stimulus_params.py.
+
+        """
+        if self.stim_dict['thalamic_input']:
+            if self.sim.rank() == 0:
+                print('Thalamic input provided')
+            self.thalamic_population = self.sim.Population(
+                                                self.stim_dict['n_thal'],
+                                                self.sim.PoissonSpikeSource(
+                                                    rate=self.stim_dict['th_rate'],
+                                                    start=self.stim_dict['th_start'],
+                                                    duration=self.stim_dict['th_duration']),
+                                                label="Thalamic input")
+            self.thalamic_weight = get_weight(
+                self.stim_dict['PSP_th'], self.net_dict
+                )
+            self.nr_synapses_th = synapses_th_matrix(
+                self.net_dict, self.stim_dict
+                )
+            if self.K_scaling != 1:
+                self.thalamic_weight = self.thalamic_weight / (self.K_scaling ** 0.5)
+                self.nr_synapses_th = self.nr_synapses_th * self.K_scaling
+        else:
+            if self.sim.rank() == 0:
+                print('Thalamic input not provided')
+
+    def create_poisson(self):
+        """ Creates the Poisson generators.
+
+        If Poissonian input is provided, the Poissonian generators are created
+        and the parameters needed are passed to the Poissonian generator.
+
+        """
+        if self.net_dict['poisson_input']:
+            if self.sim.rank() == 0:
+                print('Poisson background input created')
+            rate_ext = self.net_dict['bg_rate'] * self.K_ext
+            self.poisson = []
+            for i, target_pop in enumerate(self.pops):
+                poisson = self.sim.Population(target_pop.size,
+                                              self.sim.SpikeSourcePoisson(rate=rate_ext[i]),
+                                              label="Input to {}".format(target_pop.label))
+                self.poisson.append(poisson)
+
+    def create_dc_generator(self):
+        """ Creates a DC input generator.
+
+        If DC input is provided, the DC generators are created and the
+        necessary parameters are passed to them.
+
+        """
+        if self.stim_dict['dc_input']:
+            if self.sim.rank() == 0:
+                print('DC generator created')
+            dc_amp_stim = self.net_dict['K_ext'] * self.stim_dict['dc_amp']
+            self.dc = []
+            if self.sim.rank() == 0:
+                print('DC_amp_stim', dc_amp_stim)
+            for i in range(len(self.pops)):
+                dc = sim.DCSource(
+                        amplitude=dc_amp_stim[i],
+                        start=self.stim_dict['dc_start'],
+                        stop=self.stim_dict['dc_start'] + self.stim_dict['dc_dur'])
+                self.dc.append(dc)
+
+    def create_connections(self):
+        """ Creates the recurrent connections.
+
+        The recurrent connections between the neuronal populations are created.
+
+        """
+        if self.sim.rank() == 0:
+            print('Recurrent connections are being established')
+        mean_delays = self.net_dict['mean_delay_matrix']
+        std_delays = self.net_dict['std_delay_matrix']
+        self.projections = []
+        for i, target_pop in enumerate(self.pops):
+            for j, source_pop in enumerate(self.pops):
+                synapse_nr = int(self.synapses_scaled[i][j])
+                if synapse_nr > 0:
+                    w_mean = 0.001 * self.weight_mat[i][j]  # pA --> nA
+                    w_sd = abs(w_mean * self.weight_mat_std[i][j])
+                    if w_mean < 0:
+                        high = 0.0
+                        low = -np.inf
                     else:
-                        w[target_index][source_index]=g * w_mean
-    return w
+                        high = np.inf
+                        low = 0.0
+                    weight = RandomDistribution('normal_clipped',
+                                                mu=w_mean,
+                                                sigma=w_sd,
+                                                low=low,
+                                                high=high)
+                    delay = RandomDistribution('normal_clipped',
+                                               mu=mean_delays[i][j],
+                                               sigma=std_delays[i][j],
+                                               low=self.sim_resolution,
+                                               high=mean_delays[i][j] + 10 * std_delays[i][j])
+                    if self.sim_dict["simulator"] == "spiNNaker":
+                        connector_params = {"num_synapses": synapse_nr}
+                    else:
+                        connector_params = {"n": synapse_nr}
+                    self.projections.append(
+                        self.sim.Projection(
+                            source_pop,
+                            target_pop,
+                            self.sim.FixedTotalNumberConnector(**connector_params),
+                            synapse_type=self.sim.StaticSynapse(weight=weight,
+                                                                delay=delay))
+                    )
+                    if self.sim.rank() == 0:
+                        if self.sim_dict["simulator"] == "spiNNaker":
+                            # at present Projection.label is not defined in SpyNNaker
+                            label = "{}-{}".format(source_pop.label,
+                                                   target_pop.label)
+                        else:
+                            label = self.projections[-1].label
+                        print(
+                            "{:10} {:9} connections, weight = {:6.3f} +/- {:5.3f} nA, delay = {:4.2f} +/- {:5.3f} ms".format(
+                                label + ":", synapse_nr,
+                                w_mean, w_sd,
+                                mean_delays[i][j], std_delays[i][j])
+                        )
+
+    def connect_poisson(self):
+        """ Connects the Poisson generators to the microcircuit."""
+        if self.sim.rank() == 0:
+            print('Poisson background input is connected')
+        for i, target_pop in enumerate(self.pops):
+            self.projections.append(
+                self.sim.Projection(
+                    self.poisson[i],
+                    target_pop,
+                    self.sim.OneToOneConnector(),
+                    self.sim.StaticSynapse(weight=0.001 * self.w_ext,
+                                           delay=self.net_dict['poisson_delay']))
+            )
+
+    def connect_thalamus(self):
+        """ Connects the thalamic population to the microcircuit."""
+        if self.sim.rank() == 0:
+            print('Thalamus connection established')
+        
+        weight = RandomDistribution('normal_clipped',
+                                    mu=0.001 * self.thalamic_weight,
+                                    sigma=self.thalamic_weight * self.net_dict['PSP_sd'],
+                                    low=0.0, high=np.inf)
+
+        for i, target_pop in enumerate(self.pops):
+            synapse_nr = int(self.nr_synapses_th[i])
+            if self.sim_dict["simulator"] == "spiNNaker":
+                connector_params = {"num_synapses": synapse_nr}
+            else:
+                connector_params = {"n": synapse_nr}
+
+            mu_d = self.stim_dict['delay_th'][i]
+            s_d = self.stim_dict['delay_th_sd'][i]
+            delay = RandomDistribution('normal_clipped',
+                                       mu=mu_d,
+                                       sigma=s_d,
+                                       low=self.sim_resolution,
+                                       high=mu_d + 10 * s_d)
+
+            self.projections.append(
+                self.sim.Projection(
+                    self.thalamic_population,
+                    target_pop,
+                    self.sim.FixedTotalNumberConnector(**connector_params),
+                    self.sim.StaticSynapse(weight=weight, delay=delay)
+                )
+            )
+
+    def connect_dc_generator(self):
+        """ Connects the DC generator to the microcircuit."""
+        if self.sim.rank() == 0:
+            print('DC Generator connection established')
+        for i, target_pop in enumerate(self.pops):
+            if self.stim_dict['dc_input']:
+                self.dc[i].inject_into(target_pop)
+
+    def setup(self):
+        """ 
+        Execute subfunctions of the network.
+
+        This function executes several subfunctions to create neuronal
+        populations, devices and inputs, connects the populations with
+        each other and with devices and input nodes.
+
+        """
+        self.setup_pyNN()
+        self.create_populations()
+        self.create_devices()
+        self.create_thalamic_input()
+        self.create_poisson()
+        self.create_dc_generator()
+        self.create_connections()
+        if self.net_dict['poisson_input']:
+            self.connect_poisson()
+        if self.stim_dict['thalamic_input']:
+            self.connect_thalamus()
+        if self.stim_dict['dc_input']:
+            self.connect_dc_generator()
+
+    def write_data(self):
+        self.output_data = {}
+        for pop in self.pops:
+            self.output_data[pop.label] = "{}/{}.pkl".format(self.data_path, pop.label)
+            pop.write_data(self.output_data[pop.label], gather=True)
+
+    def simulate(self):
+        """ Simulates the microcircuit."""
+        self.sim.run(self.sim_dict['t_sim'])
+
+    def evaluate(self, raster_plot_time_idx, fire_rate_time_idx):
+        """ Displays output of the simulation.
+
+        Calculates the firing rate of each population,
+        creates a spike raster plot and a box plot of the
+        firing rates.
+
+        """
+        if self.sim.rank() == 0:
+            annotation = "Simulated with pyNN.{}".format(
+                            self.sim_dict["simulator"])
+            print(
+                'Interval to compute firing rates: %s ms'
+                % np.array2string(fire_rate_time_idx)
+                )
+            fire_rate(
+                self.output_data,
+                fire_rate_time_idx[0], fire_rate_time_idx[1],
+                self.data_path
+                )
+            print(
+                'Interval to plot spikes: %s ms'
+                % np.array2string(raster_plot_time_idx)
+                )
+            plot_raster(
+                self.output_data,
+                raster_plot_time_idx[0], raster_plot_time_idx[1],
+                self.data_path,
+                annotation=annotation
+                )
+            boxplot(self.net_dict, self.data_path,
+                    annotation=annotation)

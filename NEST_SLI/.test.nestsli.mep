@@ -4,28 +4,28 @@ experiments:
 
     spike_rate_l23e_0:
         expected:
-            spike rate: 2.7409638554216866
+            spike rate: 2.3780487804878048
     spike_rate_l23e_1:
         expected:
-            spike rate: 2.7232142857142856
+            spike rate: 2.4833333333333334
     spike_rate_l23i:
         expected:
-            spike rate: 5.129310344827586
+            spike rate: 5.991379310344827
     spike_rate_l4e:
         expected:
-            spike rate: 5.157766990291262
+            spike rate: 4.342783505154639
     spike_rate_l4i:
         expected:
-            spike rate: 6.805555555555555
+            spike rate: 8.076923076923077
     spike_rate_l5e:
         expected:
-            spike rate: 9.565217391304348
+            spike rate: 11.5625
     spike_rate_l5i:
         expected:
-            spike rate: 6.0
+            spike rate: 10.0
     spike_rate_l6e:
         expected:
-            spike rate: 1.722972972972973
+            spike rate: 1.6666666666666667
     spike_rate_l6i:
         expected:
-            spike rate: 7.589285714285714
+            spike rate: 9.464285714285714

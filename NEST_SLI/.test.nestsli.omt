@@ -8,8 +8,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_0_0-2073-0.gdf
-          format: ID_TIME
+          path: spikes_0_0-2069-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -17,12 +17,12 @@ experiments:
         end_time: 1
         tolerance: 0.00
        
-  spike_rate_l23e_1:
+  spike_rate_l23e_1: 
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_0_0-2073-1.gdf
-          format: ID_TIME
+          path: spikes_0_0-2069-1.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -34,8 +34,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_0_1-2663-0.gdf
-          format: ID_TIME
+          path: spikes_0_1-2656-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -47,8 +47,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_1_0-4862-0.gdf
-          format: ID_TIME
+          path: spikes_1_0-4851-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -60,8 +60,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_1_1-5416-0.gdf
-          format: ID_TIME
+          path: spikes_1_1-5402-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -74,8 +74,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_2_0-5909-0.gdf
-          format: ID_TIME
+          path: spikes_2_0-5891-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -87,8 +87,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_2_1-6022-0.gdf
-          format: ID_TIME
+          path: spikes_2_1-6001-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -100,8 +100,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_3_0-7469-0.gdf
-          format: ID_TIME
+          path: spikes_3_0-7444-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -113,8 +113,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: spikes_3_1-7770-0.gdf
-          format: ID_TIME
+          path: spikes_3_1-7742-1.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based

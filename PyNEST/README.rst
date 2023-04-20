@@ -1,4 +1,4 @@
-Files are copied from PyNEST example `Potjans_2014 of NEST 3.1 <https://github.com/nest/nest-simulator/tree/v3.1/pynest/examples/Potjans_2014>`_.
+Files are copied from PyNEST example `Potjans_2014 of NEST 3.3 <https://github.com/nest/nest-simulator/tree/master/pynest/examples/Potjans_2014>`_.
 
 Cortical microcircuit model
 ===========================

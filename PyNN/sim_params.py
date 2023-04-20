@@ -1,47 +1,27 @@
-###################################################
-###     	Simulation parameters		###        
-###################################################
+# -*- coding: utf-8 -*-
+"""
+Simulation parameters for the microcircuit.
 
-simulator_params = {
-    'nest' :
-    {
-      'timestep'        : 0.1,    # ms
-      'threads'         : 1,
-      'sim_duration'    : 1000.,  # ms
-    },
-    'neuroml' :
-    {
-      'timestep'        : 0.1,    # ms
-      'threads'         : 1,
-      'sim_duration'    : 1000.,  # ms
-      'reference'       : 'Microcircuit',
-      'save_format'     : 'hdf5'
-    },
+Based on original PyNEST version by Hendrik Rothe, Hannah Bos, Sacha van Albada; May 2016
+Adapted for PyNN by Andrew Davison, December 2017
+"""
+
+import os
+from datetime import datetime
+
+sim_dict = {
+    # Simulator
+    'simulator': 'nest',
+    # Simulation time (in ms).
+    't_sim': 1000.0,
+    # Resolution of the simulation (in ms).
+    'sim_resolution': 0.1,
+    # Path to save the output data.
+    'data_path': os.path.join(os.getcwd(), 'data', datetime.now().strftime("%Y%m%d-%H%M%S")),
+    # Masterseed for PyNN and NumPy.
+    'master_seed': 55,
+    # Number of threads per MPI process.
+    'local_num_threads': 1,
+    # Recording interval of the membrane potential (in ms).
+    'rec_V_int': 1.0,
 }
-
-system_params = {
-    # number of MPI nodes
-    'n_nodes' : 1,
-    # number of MPI processes per node
-    'n_procs_per_node' : 2,
-    # walltime for simulation
-    'walltime' : '8:0:0',
-    # total memory for simulation
-    'memory' : '4gb',
-
-    # file name for standard output
-    'outfile' : 'output.txt',
-    # file name for error output
-    'errfile' : 'errors.txt',
-    # absolute path to which the output files should be written
-    'output_path' : 'results',
-    # path to the MPI shell script
-    'mpi_path' : '',
-    # path to back-end
-    'backend_path' : '',
-    # path to pyNN installation
-    'pyNN_path' : '',
-    # command for submitting the job
-    'submit_cmd' : 'qsub'
-}
-

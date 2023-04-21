@@ -2,9 +2,9 @@ name: Continuous builds
 
 on:
   push:
-    branches: [ master, development, experimental, test* ]
+    branches: [ master, development, experimental, test*, pynest* ]
   pull_request:
-    branches: [ master, development, experimental, test* ]
+    branches: [ master, development, experimental, test*, pynest* ]
 
 jobs:
   build:
@@ -15,12 +15,13 @@ jobs:
       matrix:
         python-version: [ 3.9 ]
         engine: 
-           - "NEST:2.18.0"
-           - "NEST:2.20.0"
+           # - "NEST:2.18.0"   # No longer supported...
+           # - "NEST:2.20.0"   # No longer supported...
            - "NEST:3.1"
-           - "NEST:3.3"
+           - NEST
+           - "PyNEST:3.1"
            - PyNEST
-           - "PyNEST:2.20.0"
+           # - "PyNEST:2.20.0"   # No longer supported...
            - PyNN_Nest
            - jNeuroML_validate
 

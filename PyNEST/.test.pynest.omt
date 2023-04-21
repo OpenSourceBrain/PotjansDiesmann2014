@@ -1,4 +1,4 @@
-target: example.py
+target: run_microcircuit.py
 engine: PyNEST
 mep: .test.pynest.mep
 experiments:
@@ -7,8 +7,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7714-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7718-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -19,8 +19,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7715-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7719-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -32,8 +32,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7716-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7720-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -44,8 +44,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7717-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7721-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -57,8 +57,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7718-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7722-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -69,8 +69,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7719-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7723-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -82,8 +82,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7720-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7724-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based
@@ -94,8 +94,8 @@ experiments:
     observables:
       spike rate:
         spiketimes file: 
-          path: data/spike_detector-7721-0.gdf
-          format: ID_TIME
+          path: data/spike_recorder-7725-0.dat
+          format: ID_TIME_NEST_DAT
           scaling: 0.001
           ids: '*'
         method: duration based

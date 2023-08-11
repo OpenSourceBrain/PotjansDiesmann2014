@@ -92,3 +92,4 @@ Simulation on a single process:
 4. Type 'python microcircuit.py' to start the simulation on a single process
 
 
+

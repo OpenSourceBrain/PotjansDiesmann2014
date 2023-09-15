@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.9 ]
+        python-version: [ 3.9, "3.10" ]
         engine: 
            # - "NEST:2.18.0"   # No longer supported...
            # - "NEST:2.20.0"   # No longer supported...

@@ -2,9 +2,9 @@ name: Continuous builds
 
 on:
   push:
-    branches: [ master, development, experimental, test* ]
+    branches: [ master, development, experimental, test*, pynest* ]
   pull_request:
-    branches: [ master, development, experimental, test* ]
+    branches: [ master, development, experimental, test*, pynest* ]
 
 jobs:
   build:
@@ -13,15 +13,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.7, 3.8, 3.9 ]
+        python-version: [ 3.9, "3.10" ]
         engine: 
-           - "NEST:2.18.0"
-           - "NEST:2.20.0"
-           - PyNEST:2.20.0
+           # - "NEST:2.18.0"   # No longer supported...
+           # - "NEST:2.20.0"   # No longer supported...
+           - "NEST:3.1"
+           - NEST
+           - "PyNEST:3.1"
+           - PyNEST
+           # - "PyNEST:2.20.0"   # No longer supported...
            - PyNN_Nest
            - jNeuroML_validate
 
-            
+
     steps:
     - uses: actions/checkout@v3
     
@@ -29,12 +33,14 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version:  ${{ matrix.python-version }}
-        
+
     - name: Install OMV
       run: |
-        pip install git+https://github.com/OpenSourceBrain/osb-model-validation        
+        pip install git+https://github.com/OpenSourceBrain/osb-model-validation
         pip install scipy sympy matplotlib cython pandas tables
         
+        pip install 'numpy<=1.23.0' # see https://github.com/OpenSourceBrain/osb-model-validation/issues/91
+
     - name: Create a small scale network to test for NEST_SLI
       run: |
         cd NEST_SLI/test/
@@ -42,11 +48,11 @@ jobs:
         ls -alt data
         cd ../..
         ./make_tests.sh
-        
+
     - name: Run OMV tests on engine ${{ matrix.engine }}
       run: |
         omv all -V --engine=${{ matrix.engine }}
-        
+
     - name: OMV final version info
       run: |
         omv list -V # list installed engines

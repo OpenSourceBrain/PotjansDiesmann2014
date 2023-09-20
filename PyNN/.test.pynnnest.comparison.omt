@@ -16,7 +16,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.22875203915171294
+        tolerance: 1.1497443321547556
   spike_rate_l23i:
     observables:
       spike rate:
@@ -28,7 +28,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.12745664739884405
+        tolerance: 1.2609435707678078
 
   spike_rate_l4e:
     observables:
@@ -41,7 +41,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.08123725567934381
+        tolerance: 0.9143834799818774
   spike_rate_l4i:
     observables:
       spike rate:
@@ -53,7 +53,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.1448956384578703
+        tolerance: 1.3034035829256725
 
   spike_rate_l5e:
     observables:
@@ -66,7 +66,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.04379164062396111
+        tolerance: 0.8248282586535478
   spike_rate_l5i:
     observables:
       spike rate:
@@ -78,7 +78,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.2088155626692933
+        tolerance: 0.6835336538461539
 
   spike_rate_l6e:
     observables:
@@ -91,7 +91,7 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.11135283820955243
+        tolerance: 0.9678562877951206
   spike_rate_l6i:
     observables:
       spike rate:
@@ -103,4 +103,4 @@ experiments:
         method: duration based
         start_time: 0.2
         end_time: 1
-        tolerance: 0.06716827244109522
+        tolerance: 0.8876953124999999

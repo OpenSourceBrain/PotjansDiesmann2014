@@ -18,7 +18,10 @@ jobs:
            # - "NEST:2.18.0"   # No longer supported...
            # - "NEST:2.20.0"   # No longer supported...
            - "NEST:3.1"
+           - "NEST:3.3"
            - NEST
+           - "PyNEST:3.4"
+           - "PyNEST:3.5"
            - "PyNEST:3.1"
            - PyNEST
            # - "PyNEST:2.20.0"   # No longer supported...

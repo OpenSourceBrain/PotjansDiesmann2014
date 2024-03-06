@@ -1,7 +1,7 @@
 <!--
  *  README.md
  *
- *  See README.txt in NEST.
+ *  This file is part of NEST.
  *
  *  Copyright (C) 2004 The NEST Initiative
  *
@@ -27,6 +27,7 @@ sensory cortex published by [Potjans and Diesmann (2014)](http://www.ncbi.nlm.ni
 The cell-type specific cortical microcircuit: relating structure and activity in a full-scale spiking
 network model. Cerebral Cortex: doi:10.1093/cercor/bhs358.
 
+(NOTE: there is another copy of these model files here: https://github.com/nest/nest-simulator/tree/master/examples/nest/Potjans_2014)
 
 ### Files:
 
@@ -50,9 +51,9 @@ changed either.
 
 ### Instructions:
 
-1. Download NEST (http://www.nest-simulator.org/download)
+1. Download NEST (https://www.nest-simulator.org/download)
 
-2. Compile NEST: http://www.nest-simulator.org/installation
+2. Compile NEST: https://www.nest-simulator.org/installation
    Use the --with-mpi flag to configure with MPI support
 
 3. In user_params.sli adjust output_dir, mpi_path, and nest_path to your system
@@ -94,6 +95,7 @@ changed either.
      corresponding membrane potentials in mV. File names are formed as
      voltmeter label + layer index + population index + spike detector GID +
      virtual process + .dat
+
    - Run 'spike_analysis.py' with the variable 'datapath' set to the output
      folder in order to merge the spike files of each population (including
      thalamic ones, if present), sort GIDs, and produce dot plots and firing

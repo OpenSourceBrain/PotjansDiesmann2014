@@ -1,2 +1,104 @@
-target: example.py
+target: run_microcircuit.py
 engine: PyNEST
+mep: .test.pynest.mep
+experiments:
+  
+  spike_rate_l23e_0:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7718-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.035730282083604493 # due to different firing rates when run on mac/linux?
+  spike_rate_l23i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7719-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.04638434029738373 # due to different firing rates when run on mac/linux?
+        
+  spike_rate_l4e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7720-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.041120117623512406  # due to different firing rates when run on mac/linux?
+  spike_rate_l4i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7721-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.028766702633261934 # due to different firing rates when run on mac/linux?
+
+  spike_rate_l5e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7722-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.03480772984579341 # due to different firing rates when run on mac/linux?
+  spike_rate_l5i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7723-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.02750000000000009 # due to different firing rates when run on mac/linux?
+        
+  spike_rate_l6e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7724-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.0395544766528631 # due to different firing rates when run on mac/linux?
+  spike_rate_l6i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: data/spike_recorder-7725-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.008279116894197946 # due to different firing rates when run on mac/linux?

@@ -1,2 +1,123 @@
 target: microcircuit.sli
 engine: NEST
+mep: .test.nestsli.mep
+experiments:
+
+  # Note: this reflects only rate of cells that spiked at least once...
+  spike_rate_l23e_0:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_0_0-2069-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.15261044176706828 # due to different firing rates when run on mac/linux?
+       
+  spike_rate_l23e_1: 
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_0_0-2069-1.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.09659635666347068 # due to different firing rates when run on mac/linux?
+        
+  spike_rate_l23i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_0_1-2656-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.1438848920863309 # due to different firing rates when run on mac/linux?
+        
+  spike_rate_l4e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_1_0-4851-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.18766385295727583 # due to different firing rates when run on mac/linux?
+        
+  spike_rate_l4i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_1_1-5402-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.1574074074074074 # due to different firing rates when run on mac/linux?
+
+
+  spike_rate_l5e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_2_0-5891-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.172737955346651 # due to different firing rates when run on mac/linux?
+
+  spike_rate_l5i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_2_1-6001-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.4 # due to different firing rates when run on mac/linux?
+
+  spike_rate_l6e:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_3_0-7444-0.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.03378378378378377 # due to different firing rates when run on mac/linux?
+
+  spike_rate_l6i:
+    observables:
+      spike rate:
+        spiketimes file: 
+          path: spikes_3_1-7742-1.dat
+          format: ID_TIME_NEST_DAT
+          scaling: 0.001
+          ids: '*'
+        method: duration based
+        start_time: 0.2
+        end_time: 1
+        tolerance: 0.19811320754716974 # due to different firing rates when run on mac/linux?

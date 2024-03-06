@@ -1,0 +1,1 @@
+initOSBGeppetto("network", MicrocircuitNoInput_2pcnt);

@@ -24,4 +24,6 @@ sim_dict = {
     'local_num_threads': 1,
     # Recording interval of the membrane potential (in ms).
     'rec_V_int': 1.0,
+    # Fraction of neurons from which to record membrane potentials
+    'frac_record_v' : 0.1,
 }

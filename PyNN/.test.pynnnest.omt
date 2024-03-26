@@ -1,6 +1,6 @@
 # Script for running automated tests on OSB using Travis-CI, see https://github.com/OpenSourceBrain/osb-model-validation
 
-target: example.py 
+target: test.py 
 engine: PyNN_Nest
 mep: .test.pynn.mep
 experiments:

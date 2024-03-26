@@ -170,11 +170,22 @@ class Network:
         """
         Setup recording
         """
+
+        if self.sim.rank() == 0:
+            print('Recording {} (frac_record_v: {}), {}'.format(self.net_dict['to_record'],self.sim_dict['frac_record_v'],self.sim_dict['rec_V_int']))
         
         for i, pop in enumerate(self.pops):
-            pop.record(self.net_dict['to_record'], sampling_interval=self.sim_dict['rec_V_int'])
-        if self.sim.rank() == 0:
-            print('Recording {}'.format(self.sim_dict['rec_V_int']))
+            if 'spikes' in self.net_dict['to_record']:
+                pop.record('spikes')
+            if 'v' in self.net_dict['to_record']:
+                if self.sim_dict['frac_record_v']:
+                    num_v = max(1,int(round(pop.size * self.sim_dict['frac_record_v'])))
+                else:
+                    num_v = pop.size
+                print(num_v)
+                pop[0:num_v].record('v', sampling_interval=self.sim_dict['rec_V_int'])
+
+
  
     def create_thalamic_input(self):
         """ This function creates the thalamic neuronal population if this
@@ -382,10 +393,77 @@ class Network:
             self.connect_dc_generator()
 
     def write_data(self):
+
+        import time
+        start_writing = time.time()
         self.output_data = {}
         for pop in self.pops:
             self.output_data[pop.label] = "{}/{}.pkl".format(self.data_path, pop.label)
             pop.write_data(self.output_data[pop.label], gather=True)
+
+        record_v = 'v' in self.net_dict['to_record']
+                
+        for pop_obj in self.pops:
+            layer = pop_obj.label[:-1]
+            pop = pop_obj.label[-1]
+            print('Saving spikes of %s%s'%(layer, pop))
+  
+            spikes = pop_obj.get_data('spikes', gather=False)
+            
+            spiketrains = spikes.segments[0].spiketrains
+       
+            spikes_file2 = self.data_path \
+                + "/spikes_" + layer + '_' + pop + '_' + str(self.sim.rank()) + ".spikes"
+            #print('Saving data recorded for spikes in %s%s, indices: %s to %s'%(layer, pop, [s.annotations for s in spiketrains], spikes_file2))
+            ff = open(spikes_file2, 'w')
+
+            def get_source_id(spiketrain):
+                if 'source_id' in spiketrain.annotations:
+                    return spiketrain.annotations['source_id']
+
+                elif 'channel_id' in spiketrain.annotations: # See https://github.com/NeuralEnsemble/PyNN/pull/762
+                    return spiketrain.annotations['channel_id']
+                
+            for spiketrain in spiketrains:
+                source_id = get_source_id(spiketrain)
+                source_index = pop_obj.id_to_index(source_id)
+                    
+                '''print("Writing spike data for cell %s[%s] (gid: %i): %i spikes: [%s,...,%s] "% \
+                        (pop,
+                        source_index, 
+                        source_id, 
+                        len(spiketrain),
+                        spiketrain[0] if len(spiketrain)>1 else '-',
+                        spiketrain[-1] if len(spiketrain)>1 else '-'))'''
+                for t in spiketrain:
+                    ff.write('%s\t%i\n'%(t.magnitude,source_index))
+            ff.close()
+                
+            if record_v :
+                import numpy
+                vm = pop_obj.get_data('v', gather=False)
+
+                analogsignal = vm.segments[0].analogsignals[0]
+                name = analogsignal.name
+                source_ids = analogsignal.annotations['source_ids']
+
+                print('Saving data recorded for %s in pop %s%s, global ids: %s'%(name, layer, pop, source_ids))
+                filename=self.data_path+"/vm_%s_%s_%s.%s.dat"%(layer, pop, self.sim.rank(),self.sim_dict["simulator"])
+                times_vm_a = []
+                tt = numpy.array([t*self.sim.get_time_step()/1000. for t in range(len(analogsignal.transpose()[0]))])
+                times_vm_a.append(tt)
+                for i in range(len(source_ids)):
+                    glob_id = source_ids[i]
+                    index_in_pop = pop_obj.id_to_index(glob_id)
+                    #print("Writing data for cell %i = %s[%s] (gid: %i) to %s "%(i, pop,index_in_pop, glob_id, filename))
+                    vm = analogsignal.transpose()[i]
+                    times_vm_a.append(vm/1000.)
+
+                times_vm = numpy.array(times_vm_a).transpose()
+                numpy.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')    
+
+        end_writing = time.time()
+        print("Writing data took %g s" % (end_writing - start_writing,))
 
     def simulate(self):
         """ Simulates the microcircuit."""

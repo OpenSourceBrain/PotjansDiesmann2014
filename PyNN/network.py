@@ -18,6 +18,8 @@ from helpers import fire_rate
 from helpers import boxplot
 from helpers import compute_DC
 from pyNN.random import RandomDistribution
+from pyNN.space import RandomStructure, Cuboid
+import math
 
 
 class Network:
@@ -52,7 +54,7 @@ class Network:
         self.data_path = sim_dict['data_path']
         
 
-    def setup_pyNN(self):
+    def setup_pyNN(self, extra_setup_params):
         """ Reset and configure the simulator.
 
         Where the simulator is NEST,
@@ -73,7 +75,8 @@ class Network:
         self.sim.setup(timestep=self.sim_resolution,
                        threads=self.sim_dict['local_num_threads'],
                        grng_seed=grng_seed,
-                       rng_seeds=rng_seeds)
+                       rng_seeds=rng_seeds,
+                       **extra_setup_params)
         if self.sim.rank() == 0:
             print('Master seed: %i ' % master_seed)
             print('Number of total processes: %i' % N_tp)
@@ -158,12 +161,65 @@ class Network:
                                     [self.net_dict['neuron_params']['V0_mean'],
                                      self.net_dict['neuron_params']['V0_sd']],
                                    )  # todo: specify rng
+        layer_structures = {}
+
+        x_dim_scaled = self.net_dict['x_dimension'] * math.sqrt(self.N_scaling)
+        z_dim_scaled = self.net_dict['z_dimension'] * math.sqrt(self.N_scaling)
+        
+        default_cell_radius = 10 # for visualisation 
+        default_input_radius = 5 # for visualisation 
+        layer_thicknesses = self.net_dict["layer_thicknesses"]
+
+
         for i, pop in enumerate(self.net_dict['populations']):
+            layer = pop[:-1]
+
+            y_offset = 0
+            if layer == 'L6': y_offset = layer_thicknesses['L6']/2
+            elif layer == 'L5': y_offset = layer_thicknesses['L6']+layer_thicknesses['L5']/2
+            elif layer == 'L4': y_offset = layer_thicknesses['L6']+layer_thicknesses['L5']+layer_thicknesses['L4']/2
+            elif layer == 'L23': y_offset = layer_thicknesses['L6']+layer_thicknesses['L5']+layer_thicknesses['L4']+layer_thicknesses['L23']/2
+            else:
+                raise Exception("Problem with %s"%layer)
+
+            layer_volume = Cuboid(x_dim_scaled,layer_thicknesses[layer],z_dim_scaled)
+            layer_structures[layer] = RandomStructure(layer_volume, origin=(0,y_offset,0))
+
             parameters['i_offset'] = self.DC_amp_e[i] * 0.001   # pA --> nA
             population = self.sim.Population(int(self.nr_neurons[i]),
                                              neuron_model(**parameters),
+                                             structure=layer_structures[layer], 
                                              label=pop)
             population.initialize(v=v_init)
+            # Store whether population is inhibitory or excitatory
+            population.annotate(type=pop[-1:])
+                
+            population.annotate(radius=default_cell_radius)
+            population.annotate(structure=str(layer_structures[layer]))
+
+
+            try:
+                import opencortex.utils.color as occ
+                print('Adding color for %s'%pop)
+                if 'L23' in pop:
+                    if 'E' in pop: color = occ.L23_PRINCIPAL_CELL
+                    if 'I' in pop: color = occ.L23_INTERNEURON
+                if 'L4' in pop:
+                    if 'E' in pop: color = occ.L4_PRINCIPAL_CELL
+                    if 'I' in pop: color = occ.L4_INTERNEURON
+                if 'L5' in pop:
+                    if 'E' in pop: color = occ.L5_PRINCIPAL_CELL
+                    if 'I' in pop: color = occ.L5_INTERNEURON
+                if 'L6' in pop:
+                    if 'E' in pop: color = occ.L6_PRINCIPAL_CELL
+                    if 'I' in pop: color = occ.L6_INTERNEURON
+                        
+                population.annotate(color=color)
+            except Exception as e:
+                print(e)
+                # Don't worry about it, it's just metadata
+                pass
+
             self.pops.append(population)
 
     def create_devices(self):
@@ -230,7 +286,7 @@ class Network:
             for i, target_pop in enumerate(self.pops):
                 poisson = self.sim.Population(target_pop.size,
                                               self.sim.SpikeSourcePoisson(rate=rate_ext[i]),
-                                              label="Input to {}".format(target_pop.label))
+                                              label="Input_to_{}".format(target_pop.label))
                 self.poisson.append(poisson)
 
     def create_dc_generator(self):
@@ -369,7 +425,7 @@ class Network:
             if self.stim_dict['dc_input']:
                 self.dc[i].inject_into(target_pop)
 
-    def setup(self):
+    def setup(self, extra_setup_params = {}):
         """ 
         Execute subfunctions of the network.
 
@@ -378,7 +434,7 @@ class Network:
         each other and with devices and input nodes.
 
         """
-        self.setup_pyNN()
+        self.setup_pyNN(extra_setup_params)
         self.create_populations()
         self.create_devices()
         self.create_thalamic_input()

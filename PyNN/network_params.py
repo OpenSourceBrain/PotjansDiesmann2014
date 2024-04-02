@@ -224,3 +224,26 @@ updated_dict = {
 
 
 net_dict.update(updated_dict)
+
+total_cortical_thickness = 1500.0
+N_full = net_dict['N_full']
+N_E_total = N_full[0]+N_full[2]+N_full[4]+N_full[6]
+
+dimensions_3D = {
+    'x_dimension': 1000,
+    'z_dimension': 1000,
+    #thalamus_offset = -300
+
+    'total_cortical_thickness': total_cortical_thickness,
+
+# Have the thicknesses proportional to the numbers of E cells in each layer
+    'layer_thicknesses': {
+    'L23': total_cortical_thickness*N_full[0]/N_E_total,
+    'L4' : total_cortical_thickness*N_full[2]/N_E_total,
+    'L5' : total_cortical_thickness*N_full[4]/N_E_total,
+    'L6' : total_cortical_thickness*N_full[6]/N_E_total,
+    'thalamus' : 100
+    }
+}
+
+net_dict.update(dimensions_3D)

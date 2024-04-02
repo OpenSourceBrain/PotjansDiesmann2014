@@ -30,3 +30,5 @@ NEST_SLI/*.gdf
 /PyNN/*.mod
 /PyNN/*.net.nml
 /PyNN/tests.log
+/PyNN/data/2024*
+/p0/*

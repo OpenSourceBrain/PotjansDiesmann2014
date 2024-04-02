@@ -52,7 +52,7 @@ class Network:
         self.data_path = sim_dict['data_path']
         
 
-    def setup_pyNN(self):
+    def setup_pyNN(self, extra_setup_params):
         """ Reset and configure the simulator.
 
         Where the simulator is NEST,
@@ -73,7 +73,8 @@ class Network:
         self.sim.setup(timestep=self.sim_resolution,
                        threads=self.sim_dict['local_num_threads'],
                        grng_seed=grng_seed,
-                       rng_seeds=rng_seeds)
+                       rng_seeds=rng_seeds,
+                       **extra_setup_params)
         if self.sim.rank() == 0:
             print('Master seed: %i ' % master_seed)
             print('Number of total processes: %i' % N_tp)
@@ -230,7 +231,7 @@ class Network:
             for i, target_pop in enumerate(self.pops):
                 poisson = self.sim.Population(target_pop.size,
                                               self.sim.SpikeSourcePoisson(rate=rate_ext[i]),
-                                              label="Input to {}".format(target_pop.label))
+                                              label="Input_to_{}".format(target_pop.label))
                 self.poisson.append(poisson)
 
     def create_dc_generator(self):
@@ -369,7 +370,7 @@ class Network:
             if self.stim_dict['dc_input']:
                 self.dc[i].inject_into(target_pop)
 
-    def setup(self):
+    def setup(self, extra_setup_params = {}):
         """ 
         Execute subfunctions of the network.
 
@@ -378,7 +379,7 @@ class Network:
         each other and with devices and input nodes.
 
         """
-        self.setup_pyNN()
+        self.setup_pyNN(extra_setup_params)
         self.create_populations()
         self.create_devices()
         self.create_thalamic_input()

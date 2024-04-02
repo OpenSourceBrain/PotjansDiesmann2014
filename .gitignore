@@ -32,3 +32,7 @@ NEST_SLI/*.gdf
 /PyNN/tests.log
 /PyNN/data/2024*
 /p0/*
+/NeuroML2/*.dat
+/PyNN/LEMS_Sim_Microcircuit*.xml
+/NeuroML2/*.spikes
+/NeuroML2/Microcircuit*.gv

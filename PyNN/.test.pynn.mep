@@ -4,25 +4,25 @@ experiments:
 
     spike_rate_l23e:
         expected:
-            spike rate: 1.4385775862068966 # Note: this reflects only rate of cells that spiked at least once...
+            spike rate: 1.403748946925021 # Note: this reflects only rate of cells that spiked at least once...
     spike_rate_l23i:
         expected:
-            spike rate: 3.44954128440367
+            spike rate: 3.463302752293578
     spike_rate_l4e:
         expected:
-            spike rate: 4.850835322195704
+            spike rate: 4.915355269432522
     spike_rate_l4i:
         expected:
-            spike rate: 7.12312734082397
+            spike rate: 7.116635687732342
     spike_rate_l5e:
         expected:
-            spike rate: 7.869022869022869
+            spike rate: 8.001559251559252
     spike_rate_l5i:
         expected:
-            spike rate: 7.85377358490566
+            spike rate: 7.759433962264151
     spike_rate_l6e:
         expected:
-            spike rate: 1.8208245243128964
+            spike rate: 1.8477157360406091
     spike_rate_l6i:
         expected:
-            spike rate: 8.225255972696246
+            spike rate: 8.216723549488055

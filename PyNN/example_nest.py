@@ -32,8 +32,6 @@ def setup_nest():
     N_tp = sim.num_processes() * local_num_threads
     rng_seeds = list(range(master_seed + 1 + N_tp, master_seed + 1 + (2 * N_tp)))
     grng_seed = master_seed + N_tp
-    pyrngs = [np.random.RandomState(s) 
-              for s in list(range(master_seed, master_seed + N_tp))]
     sim.setup(timestep=sim_resolution,
               threads=local_num_threads,
               grng_seed=grng_seed,

@@ -168,11 +168,16 @@ class Network:
             if self.sim_dict['v_init_type'] == 'random':
                 population.initialize(v=v_init)
             elif self.sim_dict['v_init_type'] == 'pop_random':
+                if (len(self.net_dict['neuron_params']['V0_pop_mean']) <= i or
+                        len(self.net_dict['neuron_params']['V0_pop_sd']) <= i):
+                    raise IndexError(
+                        "Ensure the 'neuron_params' values for 'V0_pop_mean' and 'V0_pop_sd' "
+                        "have a value for each Population when using 'v_init_type' of 'pop_random'")
                 population.initialize(v=self.sim.RandomDistribution(
                     "normal", [self.net_dict['neuron_params']['V0_pop_mean'][i],
                                self.net_dict['neuron_params']['V0_pop_sd'][i]]))
             else:
-                raise Exception("Unknown v_init_type %s"%self.sim_dict['v_init_type'])
+                raise ValueError("Unknown v_init_type %s"%self.sim_dict['v_init_type'])
             # Store whether population is inhibitory or excitatory
             population.annotate(type=pop[-1:])
                 

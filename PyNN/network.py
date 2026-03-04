@@ -6,7 +6,7 @@ Based on original PyNEST version by Hendrik Rothe, Hannah Bos, Sacha van Albada;
 Adapted for PyNN by Andrew Davison, December 2017
 """
 
-from importlib import import_module
+from datetime import datetime
 import numpy as np
 import os
 from helpers import adj_w_ext_to_K
@@ -17,7 +17,6 @@ from helpers import plot_raster
 from helpers import fire_rate
 from helpers import boxplot
 from helpers import compute_DC
-from pyNN.random import RandomDistribution
 from pyNN.space import RandomStructure, Cuboid
 import math
 
@@ -43,52 +42,25 @@ class Network:
         (see: stimulus_params.py)
 
     """
-    def __init__(self, sim_dict, net_dict, stim_dict=None):
+    def __init__(self, sim, sim_dict, net_dict, stim_dict=None):
         self.sim_dict = sim_dict
         self.net_dict = net_dict
         if stim_dict is not None:
             self.stim_dict = stim_dict
         else:
             self.stim_dict = None
-        self.sim = import_module("pyNN.%s" % sim_dict["simulator"])
-        self.data_path = sim_dict['data_path']
-        
+        self.sim = sim
+        self.data_path = os.path.join(sim_dict['data_path'], 
+                                      datetime.now().strftime("%Y%m%d-%H%M%S"))
 
-    def setup_pyNN(self, extra_setup_params):
-        """ Reset and configure the simulator.
-
-        Where the simulator is NEST,
-        the number of seeds for the NEST-kernel is computed, based on the
-        total number of MPI processes and threads of each.
-        """
-
-        master_seed = self.sim_dict['master_seed']
-        if self.sim_dict['simulator'] == "spiNNaker":
-            N_tp = 1
-        else:
-            N_tp = self.sim.num_processes() * self.sim_dict['local_num_threads']
-        rng_seeds = list(range(master_seed + 1 + N_tp, master_seed + 1 + (2 * N_tp)))
-        grng_seed = master_seed + N_tp
-        self.pyrngs = [np.random.RandomState(s) 
-                       for s in list(range(master_seed, master_seed + N_tp))]
-        self.sim_resolution = self.sim_dict['sim_resolution']
-        self.sim.setup(timestep=self.sim_resolution,
-                       threads=self.sim_dict['local_num_threads'],
-                       grng_seed=grng_seed,
-                       rng_seeds=rng_seeds,
-                       **extra_setup_params)
+    def setup_dirs(self):
         if self.sim.rank() == 0:
-            print('Master seed: %i ' % master_seed)
-            print('Number of total processes: %i' % N_tp)
-            print('Seeds for random number generators of virtual processes: %r' % rng_seeds)
-            print('Global random number generator seed: %i' % grng_seed)
-            if os.path.isdir(self.sim_dict['data_path']):
+            if os.path.isdir(self.data_path):
                 print('data directory already exists')
             else:
-                os.makedirs(self.sim_dict['data_path'])
+                os.makedirs(self.data_path)
                 print('data directory created')
             print('Data will be written to %s' % self.data_path)
-
 
     def create_populations(self):
         """ Creates the neuronal populations.
@@ -157,10 +129,12 @@ class Network:
             'cm': self.net_dict['neuron_params']['C_m'] * 0.001,  # pF --> nF
             'tau_m': self.net_dict['neuron_params']['tau_m']
         }
-        v_init = RandomDistribution("normal",
-                                    [self.net_dict['neuron_params']['V0_mean'],
-                                     self.net_dict['neuron_params']['V0_sd']],
-                                   )  # todo: specify rng
+        v_init = self.sim.RandomDistribution(
+            "normal",
+            [self.net_dict['neuron_params']['V0_mean'],
+             self.net_dict['neuron_params']['V0_sd']],
+            )  # todo: specify rng
+
         layer_structures = {}
 
         x_dim_scaled = self.net_dict['x_dimension'] * math.sqrt(self.N_scaling)
@@ -190,7 +164,15 @@ class Network:
                                              neuron_model(**parameters),
                                              structure=layer_structures[layer], 
                                              label=pop)
-            population.initialize(v=v_init)
+
+            if self.sim_dict['v_init_type'] == 'random':
+                population.initialize(v=v_init)
+            elif self.sim_dict['v_init_type'] == 'pop_random':
+                population.initialize(v=self.sim.RandomDistribution(
+                    "normal", [self.net_dict['neuron_params']['V0_pop_mean'][i],
+                               self.net_dict['neuron_params']['V0_pop_sd'][i]]))
+            else:
+                raise Exception("Unknown v_init_type %s"%self.sim_dict['v_init_type'])
             # Store whether population is inhibitory or excitatory
             population.annotate(type=pop[-1:])
                 
@@ -327,41 +309,30 @@ class Network:
                 if synapse_nr > 0:
                     w_mean = 0.001 * self.weight_mat[i][j]  # pA --> nA
                     w_sd = abs(w_mean * self.weight_mat_std[i][j])
+                    receptor = "excitatory"
                     if w_mean < 0:
                         high = 0.0
                         low = -np.inf
+                        receptor = "inhibitory"
                     else:
                         high = np.inf
                         low = 0.0
-                    weight = RandomDistribution('normal_clipped',
-                                                mu=w_mean,
-                                                sigma=w_sd,
-                                                low=low,
-                                                high=high)
-                    delay = RandomDistribution('normal_clipped',
-                                               mu=mean_delays[i][j],
-                                               sigma=std_delays[i][j],
-                                               low=self.sim_resolution,
-                                               high=mean_delays[i][j] + 10 * std_delays[i][j])
-                    if self.sim_dict["simulator"] == "spiNNaker":
-                        connector_params = {"num_synapses": synapse_nr}
-                    else:
-                        connector_params = {"n": synapse_nr}
+                    weight = self.sim.RandomDistribution(
+                        'normal_clipped', mu=w_mean, sigma=w_sd, low=low, high=high)
+                    delay = self.sim.RandomDistribution(
+                        'normal_clipped', mu=mean_delays[i][j], sigma=std_delays[i][j],
+                        low=self.sim.get_min_delay(), high=mean_delays[i][j] + 10 * std_delays[i][j])
                     self.projections.append(
                         self.sim.Projection(
                             source_pop,
                             target_pop,
-                            self.sim.FixedTotalNumberConnector(**connector_params),
+                            self.sim.FixedTotalNumberConnector(synapse_nr),
                             synapse_type=self.sim.StaticSynapse(weight=weight,
-                                                                delay=delay))
+                                                                delay=delay),
+                            receptor_type=receptor)
                     )
                     if self.sim.rank() == 0:
-                        if self.sim_dict["simulator"] == "spiNNaker":
-                            # at present Projection.label is not defined in SpyNNaker
-                            label = "{}-{}".format(source_pop.label,
-                                                   target_pop.label)
-                        else:
-                            label = self.projections[-1].label
+                        label = self.projections[-1].label
                         print(
                             "{:10} {:9} connections, weight = {:6.3f} +/- {:5.3f} nA, delay = {:4.2f} +/- {:5.3f} ms".format(
                                 label + ":", synapse_nr,
@@ -388,31 +359,25 @@ class Network:
         if self.sim.rank() == 0:
             print('Thalamus connection established')
         
-        weight = RandomDistribution('normal_clipped',
-                                    mu=0.001 * self.thalamic_weight,
-                                    sigma=self.thalamic_weight * self.net_dict['PSP_sd'],
-                                    low=0.0, high=np.inf)
+        weight = self.sim.RandomDistribution(
+            'normal_clipped', mu=0.001 * self.thalamic_weight,
+            sigma=self.thalamic_weight * self.net_dict['PSP_sd'],
+            low=0.0, high=np.inf)
 
         for i, target_pop in enumerate(self.pops):
             synapse_nr = int(self.nr_synapses_th[i])
-            if self.sim_dict["simulator"] == "spiNNaker":
-                connector_params = {"num_synapses": synapse_nr}
-            else:
-                connector_params = {"n": synapse_nr}
 
             mu_d = self.stim_dict['delay_th'][i]
             s_d = self.stim_dict['delay_th_sd'][i]
-            delay = RandomDistribution('normal_clipped',
-                                       mu=mu_d,
-                                       sigma=s_d,
-                                       low=self.sim_resolution,
-                                       high=mu_d + 10 * s_d)
+            delay = self.sim.RandomDistribution(
+                'normal_clipped', mu=mu_d, sigma=s_d,
+                low=self.sim.get_min_delay(), high=mu_d + 10 * s_d)
 
             self.projections.append(
                 self.sim.Projection(
                     self.thalamic_population,
                     target_pop,
-                    self.sim.FixedTotalNumberConnector(**connector_params),
+                    self.sim.FixedTotalNumberConnector(synapse_nr),
                     self.sim.StaticSynapse(weight=weight, delay=delay)
                 )
             )
@@ -425,7 +390,7 @@ class Network:
             if self.stim_dict['dc_input']:
                 self.dc[i].inject_into(target_pop)
 
-    def setup(self, extra_setup_params = {}):
+    def setup(self):
         """ 
         Execute subfunctions of the network.
 
@@ -434,7 +399,8 @@ class Network:
         each other and with devices and input nodes.
 
         """
-        self.setup_pyNN(extra_setup_params)
+        self.sim_dict['setup_func']()
+        self.setup_dirs()
         self.create_populations()
         self.create_devices()
         self.create_thalamic_input()
@@ -504,7 +470,7 @@ class Network:
                 source_ids = analogsignal.annotations['source_ids']
 
                 print('Saving data recorded for %s in pop %s%s, global ids: %s'%(name, layer, pop, source_ids))
-                filename=self.data_path+"/vm_%s_%s_%s.%s.dat"%(layer, pop, self.sim.rank(),self.sim_dict["simulator"])
+                filename=self.data_path+"/vm_%s_%s_%s.dat"%(layer, pop, self.sim.rank())
                 times_vm_a = []
                 tt = numpy.array([t*self.sim.get_time_step()/1000. for t in range(len(analogsignal.transpose()[0]))])
                 times_vm_a.append(tt)
@@ -534,8 +500,7 @@ class Network:
 
         """
         if self.sim.rank() == 0:
-            annotation = "Simulated with pyNN.{}".format(
-                            self.sim_dict["simulator"])
+            annotation = "Simulated with {}".format(self.sim.__name__)
             print(
                 'Interval to compute firing rates: %s ms'
                 % np.array2string(fire_rate_time_idx)

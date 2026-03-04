@@ -107,7 +107,7 @@ def get_total_number_of_synapses(net_dict):
     prod = np.outer(N_full, N_full)
     n_syn_temp = np.log(1. - conn_probs)/np.log((prod - 1.) / prod)
     N_full_matrix = np.column_stack(
-        (N_full for i in list(range(number_N)))
+        [N_full for i in list(range(number_N))]
         )
     # If the network is scaled the indegrees are calculated in the same
     # fashion as in the original version of the circuit, which is

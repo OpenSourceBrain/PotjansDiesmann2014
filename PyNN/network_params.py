@@ -166,7 +166,7 @@ net_dict = {
     # Turn Poisson input on or off (True or False).
     'poisson_input': True,
     # Delay of the Poisson generator (in ms).
-    'poisson_delay': 1.5,
+    'poisson_delay': 0.1,
     # Mean delay of excitatory connections (in ms).
     'mean_delay_exc': 1.5,
     # Mean delay of inhibitory connections (in ms).
@@ -180,6 +180,10 @@ net_dict = {
         'V0_mean': -58.0,
         # Standard deviation of the average membrane potential (in mV).
         'V0_sd': 10.0,
+        # Membrane potential average for neurons per Population (in mV).
+        'V0_pop_mean': [-64.28, -59.16, -59.33, -59.45, -59.11, -57.66, -62.72, -57.43],
+        # Membrane potential standard deviation per Population (in mV).
+        'V0_pop_sd':   [  4.36,   3.57,   3.74,   3.94,   3.94,   3.55,   4.46,   3.48],
         # Reset membrane potential of the neurons (in mV).
         'E_L': -65.0,
         # Threshold potential of the neurons (in mV).

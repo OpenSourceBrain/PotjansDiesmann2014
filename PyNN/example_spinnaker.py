@@ -71,7 +71,7 @@ net_dict['N_scaling'] = 1.0
 
 # SpiNNaker Poisson at min-delay will use direct input mode,
 # which is more efficient with high-rate sources
-net_dict['poisson_delay'] = 0.1,
+net_dict['poisson_delay'] = 0.1
 
 
 # Initialize the network and pass parameters to it.

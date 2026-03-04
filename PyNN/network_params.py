@@ -166,7 +166,7 @@ net_dict = {
     # Turn Poisson input on or off (True or False).
     'poisson_input': True,
     # Delay of the Poisson generator (in ms).
-    'poisson_delay': 0.1,
+    'poisson_delay': 1.5,
     # Mean delay of excitatory connections (in ms).
     'mean_delay_exc': 1.5,
     # Mean delay of inhibitory connections (in ms).

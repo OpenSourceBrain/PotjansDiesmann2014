@@ -1,0 +1,277 @@
+<Lems>
+
+    <!-- 
+    This LEMS file has been generated from: 
+        PyNN v0.10.1
+        libNeuroML v0.5.9
+        pyNeuroML v1.2.7
+     -->
+
+    <!-- Specify which component to run -->
+    <Target component="Sim_Microcircuit_0_2pcnt"/>
+
+    <!-- Include core NeuroML2 ComponentType definitions -->
+    <Include file="Cells.xml"/>
+    <Include file="Networks.xml"/>
+    <Include file="Simulation.xml"/>
+
+    <Include file="PyNN.xml"/>
+    <Include file="Microcircuit_0_2pcnt.net.nml"/>
+
+    <Simulation id="Sim_Microcircuit_0_2pcnt" length="1000.0ms" step="0.1ms" target="Microcircuit_0_2pcnt" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
+        <Display id="L23E_v" title="L23E v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L23E v: cell 42" quantity="L23E/0/IF_curr_exp_L23E/v" scale="1mV" color="#d54f33" timeScale="1ms"/>
+            <Line id="L23E v: cell 43" quantity="L23E/1/IF_curr_exp_L23E/v" scale="1mV" color="#0534e4" timeScale="1ms"/>
+            <Line id="L23E v: cell 44" quantity="L23E/2/IF_curr_exp_L23E/v" scale="1mV" color="#98e752" timeScale="1ms"/>
+            <Line id="L23E v: cell 45" quantity="L23E/3/IF_curr_exp_L23E/v" scale="1mV" color="#bca074" timeScale="1ms"/>
+        </Display>
+
+        <Display id="L23I_v" title="L23I v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L23I v: cell 83" quantity="L23I/0/IF_curr_exp_L23I/v" scale="1mV" color="#632794" timeScale="1ms"/>
+        </Display>
+
+        <Display id="L4E_v" title="L4E v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L4E v: cell 96" quantity="L4E/2/IF_curr_exp_L4E/v" scale="1mV" color="#8a5d88" timeScale="1ms"/>
+            <Line id="L4E v: cell 97" quantity="L4E/3/IF_curr_exp_L4E/v" scale="1mV" color="#df5954" timeScale="1ms"/>
+            <Line id="L4E v: cell 94" quantity="L4E/0/IF_curr_exp_L4E/v" scale="1mV" color="#52c8bf" timeScale="1ms"/>
+            <Line id="L4E v: cell 95" quantity="L4E/1/IF_curr_exp_L4E/v" scale="1mV" color="#bf0239" timeScale="1ms"/>
+        </Display>
+
+        <Display id="L4I_v" title="L4I v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L4I v: cell 137" quantity="L4I/0/IF_curr_exp_L4I/v" scale="1mV" color="#3f9fe8" timeScale="1ms"/>
+        </Display>
+
+        <Display id="L5E_v" title="L5E v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L5E v: cell 147" quantity="L5E/0/IF_curr_exp_L5E/v" scale="1mV" color="#dda9d2" timeScale="1ms"/>
+        </Display>
+
+        <Display id="L5I_v" title="L5I v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L5I v: cell 156" quantity="L5I/0/IF_curr_exp_L5I/v" scale="1mV" color="#85ad96" timeScale="1ms"/>
+        </Display>
+
+        <Display id="L6E_v" title="L6E v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L6E v: cell 160" quantity="L6E/2/IF_curr_exp_L6E/v" scale="1mV" color="#59438f" timeScale="1ms"/>
+            <Line id="L6E v: cell 158" quantity="L6E/0/IF_curr_exp_L6E/v" scale="1mV" color="#5fa56f" timeScale="1ms"/>
+            <Line id="L6E v: cell 159" quantity="L6E/1/IF_curr_exp_L6E/v" scale="1mV" color="#b5b5a2" timeScale="1ms"/>
+        </Display>
+
+        <Display id="L6I_v" title="L6I v" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-70" ymax="10">
+            <Line id="L6I v: cell 186" quantity="L6I/0/IF_curr_exp_L6I/v" scale="1mV" color="#2ebe19" timeScale="1ms"/>
+        </Display>
+
+        <OutputFile id="OF_L23E_v" fileName="L23E_v.dat">
+            <OutputColumn id="L23E_0_IF_curr_exp_L23E_v" quantity="L23E/0/IF_curr_exp_L23E/v"/>
+            <OutputColumn id="L23E_1_IF_curr_exp_L23E_v" quantity="L23E/1/IF_curr_exp_L23E/v"/>
+            <OutputColumn id="L23E_2_IF_curr_exp_L23E_v" quantity="L23E/2/IF_curr_exp_L23E/v"/>
+            <OutputColumn id="L23E_3_IF_curr_exp_L23E_v" quantity="L23E/3/IF_curr_exp_L23E/v"/>
+        </OutputFile>
+
+        <OutputFile id="OF_L23I_v" fileName="L23I_v.dat">
+            <OutputColumn id="L23I_0_IF_curr_exp_L23I_v" quantity="L23I/0/IF_curr_exp_L23I/v"/>
+        </OutputFile>
+
+        <OutputFile id="OF_L4E_v" fileName="L4E_v.dat">
+            <OutputColumn id="L4E_2_IF_curr_exp_L4E_v" quantity="L4E/2/IF_curr_exp_L4E/v"/>
+            <OutputColumn id="L4E_3_IF_curr_exp_L4E_v" quantity="L4E/3/IF_curr_exp_L4E/v"/>
+            <OutputColumn id="L4E_0_IF_curr_exp_L4E_v" quantity="L4E/0/IF_curr_exp_L4E/v"/>
+            <OutputColumn id="L4E_1_IF_curr_exp_L4E_v" quantity="L4E/1/IF_curr_exp_L4E/v"/>
+        </OutputFile>
+
+        <OutputFile id="OF_L4I_v" fileName="L4I_v.dat">
+            <OutputColumn id="L4I_0_IF_curr_exp_L4I_v" quantity="L4I/0/IF_curr_exp_L4I/v"/>
+        </OutputFile>
+
+        <OutputFile id="OF_L5E_v" fileName="L5E_v.dat">
+            <OutputColumn id="L5E_0_IF_curr_exp_L5E_v" quantity="L5E/0/IF_curr_exp_L5E/v"/>
+        </OutputFile>
+
+        <OutputFile id="OF_L5I_v" fileName="L5I_v.dat">
+            <OutputColumn id="L5I_0_IF_curr_exp_L5I_v" quantity="L5I/0/IF_curr_exp_L5I/v"/>
+        </OutputFile>
+
+        <OutputFile id="OF_L6E_v" fileName="L6E_v.dat">
+            <OutputColumn id="L6E_2_IF_curr_exp_L6E_v" quantity="L6E/2/IF_curr_exp_L6E/v"/>
+            <OutputColumn id="L6E_0_IF_curr_exp_L6E_v" quantity="L6E/0/IF_curr_exp_L6E/v"/>
+            <OutputColumn id="L6E_1_IF_curr_exp_L6E_v" quantity="L6E/1/IF_curr_exp_L6E/v"/>
+        </OutputFile>
+
+        <OutputFile id="OF_L6I_v" fileName="L6I_v.dat">
+            <OutputColumn id="L6I_0_IF_curr_exp_L6I_v" quantity="L6I/0/IF_curr_exp_L6I/v"/>
+        </OutputFile>
+
+        <EventOutputFile id="Spikes_file_L23E" fileName="L23E.spikes" format="TIME_ID">
+            <EventSelection id="0" select="L23E/0/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="1" select="L23E/1/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="2" select="L23E/2/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="3" select="L23E/3/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="4" select="L23E/4/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="5" select="L23E/5/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="6" select="L23E/6/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="7" select="L23E/7/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="8" select="L23E/8/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="9" select="L23E/9/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="10" select="L23E/10/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="11" select="L23E/11/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="12" select="L23E/12/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="13" select="L23E/13/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="14" select="L23E/14/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="15" select="L23E/15/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="16" select="L23E/16/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="17" select="L23E/17/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="18" select="L23E/18/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="19" select="L23E/19/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="20" select="L23E/20/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="21" select="L23E/21/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="22" select="L23E/22/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="23" select="L23E/23/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="24" select="L23E/24/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="25" select="L23E/25/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="26" select="L23E/26/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="27" select="L23E/27/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="28" select="L23E/28/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="29" select="L23E/29/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="30" select="L23E/30/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="31" select="L23E/31/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="32" select="L23E/32/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="33" select="L23E/33/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="34" select="L23E/34/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="35" select="L23E/35/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="36" select="L23E/36/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="37" select="L23E/37/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="38" select="L23E/38/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="39" select="L23E/39/IF_curr_exp_L23E" eventPort="spike"/>
+            <EventSelection id="40" select="L23E/40/IF_curr_exp_L23E" eventPort="spike"/>
+        </EventOutputFile>
+
+        <EventOutputFile id="Spikes_file_L23I" fileName="L23I.spikes" format="TIME_ID">
+            <EventSelection id="0" select="L23I/0/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="1" select="L23I/1/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="2" select="L23I/2/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="3" select="L23I/3/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="4" select="L23I/4/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="5" select="L23I/5/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="6" select="L23I/6/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="7" select="L23I/7/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="8" select="L23I/8/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="9" select="L23I/9/IF_curr_exp_L23I" eventPort="spike"/>
+            <EventSelection id="10" select="L23I/10/IF_curr_exp_L23I" eventPort="spike"/>
+        </EventOutputFile>
+
+        <EventOutputFile id="Spikes_file_L4E" fileName="L4E.spikes" format="TIME_ID">
+            <EventSelection id="34" select="L4E/34/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="35" select="L4E/35/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="36" select="L4E/36/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="37" select="L4E/37/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="38" select="L4E/38/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="39" select="L4E/39/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="40" select="L4E/40/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="41" select="L4E/41/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="42" select="L4E/42/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="0" select="L4E/0/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="1" select="L4E/1/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="2" select="L4E/2/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="3" select="L4E/3/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="4" select="L4E/4/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="5" select="L4E/5/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="6" select="L4E/6/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="7" select="L4E/7/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="8" select="L4E/8/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="9" select="L4E/9/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="10" select="L4E/10/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="11" select="L4E/11/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="12" select="L4E/12/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="13" select="L4E/13/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="14" select="L4E/14/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="15" select="L4E/15/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="16" select="L4E/16/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="17" select="L4E/17/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="18" select="L4E/18/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="19" select="L4E/19/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="20" select="L4E/20/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="21" select="L4E/21/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="22" select="L4E/22/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="23" select="L4E/23/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="24" select="L4E/24/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="25" select="L4E/25/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="26" select="L4E/26/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="27" select="L4E/27/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="28" select="L4E/28/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="29" select="L4E/29/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="30" select="L4E/30/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="31" select="L4E/31/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="32" select="L4E/32/IF_curr_exp_L4E" eventPort="spike"/>
+            <EventSelection id="33" select="L4E/33/IF_curr_exp_L4E" eventPort="spike"/>
+        </EventOutputFile>
+
+        <EventOutputFile id="Spikes_file_L4I" fileName="L4I.spikes" format="TIME_ID">
+            <EventSelection id="0" select="L4I/0/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="1" select="L4I/1/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="2" select="L4I/2/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="3" select="L4I/3/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="4" select="L4I/4/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="5" select="L4I/5/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="6" select="L4I/6/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="7" select="L4I/7/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="8" select="L4I/8/IF_curr_exp_L4I" eventPort="spike"/>
+            <EventSelection id="9" select="L4I/9/IF_curr_exp_L4I" eventPort="spike"/>
+        </EventOutputFile>
+
+        <EventOutputFile id="Spikes_file_L5E" fileName="L5E.spikes" format="TIME_ID">
+            <EventSelection id="0" select="L5E/0/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="1" select="L5E/1/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="2" select="L5E/2/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="3" select="L5E/3/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="4" select="L5E/4/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="5" select="L5E/5/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="6" select="L5E/6/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="7" select="L5E/7/IF_curr_exp_L5E" eventPort="spike"/>
+            <EventSelection id="8" select="L5E/8/IF_curr_exp_L5E" eventPort="spike"/>
+        </EventOutputFile>
+
+        <EventOutputFile id="Spikes_file_L5I" fileName="L5I.spikes" format="TIME_ID">
+            <EventSelection id="0" select="L5I/0/IF_curr_exp_L5I" eventPort="spike"/>
+            <EventSelection id="1" select="L5I/1/IF_curr_exp_L5I" eventPort="spike"/>
+        </EventOutputFile>
+
+        <EventOutputFile id="Spikes_file_L6E" fileName="L6E.spikes" format="TIME_ID">
+            <EventSelection id="0" select="L6E/0/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="1" select="L6E/1/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="2" select="L6E/2/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="3" select="L6E/3/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="4" select="L6E/4/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="5" select="L6E/5/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="6" select="L6E/6/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="7" select="L6E/7/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="8" select="L6E/8/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="9" select="L6E/9/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="10" select="L6E/10/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="11" select="L6E/11/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="12" select="L6E/12/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="13" select="L6E/13/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="14" select="L6E/14/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="15" select="L6E/15/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="16" select="L6E/16/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="17" select="L6E/17/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="18" select="L6E/18/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="19" select="L6E/19/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="20" select="L6E/20/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="21" select="L6E/21/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="22" select="L6E/22/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="23" select="L6E/23/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="24" select="L6E/24/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="25" select="L6E/25/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="26" select="L6E/26/IF_curr_exp_L6E" eventPort="spike"/>
+            <EventSelection id="27" select="L6E/27/IF_curr_exp_L6E" eventPort="spike"/>
+        </EventOutputFile>
+
+        <EventOutputFile id="Spikes_file_L6I" fileName="L6I.spikes" format="TIME_ID">
+            <EventSelection id="0" select="L6I/0/IF_curr_exp_L6I" eventPort="spike"/>
+            <EventSelection id="1" select="L6I/1/IF_curr_exp_L6I" eventPort="spike"/>
+            <EventSelection id="2" select="L6I/2/IF_curr_exp_L6I" eventPort="spike"/>
+            <EventSelection id="3" select="L6I/3/IF_curr_exp_L6I" eventPort="spike"/>
+            <EventSelection id="4" select="L6I/4/IF_curr_exp_L6I" eventPort="spike"/>
+        </EventOutputFile>
+
+    </Simulation>
+
+</Lems>
